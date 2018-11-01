@@ -21,10 +21,4 @@ public interface CommonConstant {
      * 上下文编码
      */
     String CONTENT_ENCODE = "UTF-8";
-
-    /**
-     * 阿里大鱼
-     */
-    String ALIYUN_SMS = "aliyun_sms";
-
 }

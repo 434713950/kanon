@@ -1,8 +1,6 @@
-package com.github.kanon.common.utils.template;
+package com.github.kanon.common.notify;
 
 import lombok.Data;
-
-import java.io.Serializable;
 
 /**
  * <p>短信通知用的模板bean</p>
@@ -11,7 +9,7 @@ import java.io.Serializable;
  * @date 2018/10/31
  */
 @Data
-public class SmsNotifyTemplate implements Serializable {
+public class SmsNotifyTemplate extends NotifyTemplate{
 
     /**
      * 手机号
@@ -44,11 +42,11 @@ public class SmsNotifyTemplate implements Serializable {
      */
     private String template;
 
-    public SmsNotifyTemplate(String mobile, String context, String channel, SmsChannelTemplateEnum smsChannelTemplateEnum){
+    public SmsNotifyTemplate(String mobile, String context, String channel, String sign, String templateCode){
         this.mobile = mobile;
         this.context = context;
         this.channel = channel;
-        this.signName = smsChannelTemplateEnum.getSignName();
-        this.template = smsChannelTemplateEnum.getTemplate();
+        this.signName = sign;
+        this.template = templateCode;
     }
 }

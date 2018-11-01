@@ -22,6 +22,16 @@ public class MonitorMobileProperties {
     private Boolean enabled;
 
     /**
+     * 短信服务的签名
+     */
+    private String sign;
+
+    /**
+     * 短信使用的模板code
+     */
+    private String templateCode;
+
+    /**
      * 需要通知的手机号
      */
     private List<String> mobiles = new ArrayList<>();

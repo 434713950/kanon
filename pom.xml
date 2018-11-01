@@ -15,6 +15,7 @@
         <module>kanon-common</module>
         <module>kanon-gateway</module>
         <module>kanon-visual</module>
+        <module>kanon-modular</module>
     </modules>
 
     <parent>

@@ -1,10 +1,9 @@
 package com.github.kanon.monitor.notifier;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.kanon.common.constants.CommonConstant;
 import com.github.kanon.common.constants.MqQueueConstant;
-import com.github.kanon.common.utils.template.SmsChannelTemplateEnum;
-import com.github.kanon.common.utils.template.SmsNotifyTemplate;
+import com.github.kanon.common.constants.SmsType;
+import com.github.kanon.common.notify.SmsNotifyTemplate;
 import com.github.kanon.monitor.config.MonitorPropertiesConfig;
 import com.github.pcutil.common.CollectionUtil;
 import com.github.pcutil.common.DateUtil;
@@ -35,11 +34,11 @@ public class StatusChangeNotifier extends AbstractStatusChangeNotifier {
 
 
     @Override
-    protected void doNotify(ClientApplicationEvent event) throws Exception {
+    protected void doNotify(ClientApplicationEvent event) {
         if (event instanceof ClientApplicationStatusChangedEvent) {
             log.info("Application {} ({}) is {}", event.getApplication().getName(),
                     event.getApplication().getId(), ((ClientApplicationStatusChangedEvent) event).getTo().getStatus());
-            String text = String.format("应用:%s 服务ID:%s 状态改变为：%s，时间：%s"
+            String text = String.format("application:%s server_id:%s status_changed:%s,time:%s"
                     , event.getApplication().getName()
                     , event.getApplication().getId()
                     , ((ClientApplicationStatusChangedEvent) event).getTo().getStatus()
@@ -52,19 +51,20 @@ public class StatusChangeNotifier extends AbstractStatusChangeNotifier {
 
             //开启短信通知
             if (monitorMobilePropertiesConfig.getMobile().getEnabled()) {
-                log.info("开始短信通知，内容：{}", text);
+                log.info("sms notify start,content:{}", text);
                 rabbitTemplate.convertAndSend(MqQueueConstant.SMS_SERVICE_STATUS_CHANGE,
                         new SmsNotifyTemplate(
                                 CollectionUtil.join(monitorMobilePropertiesConfig.getMobile().getMobiles(), ","),
                                 contextJson.toJSONString(),
-                                CommonConstant.ALIYUN_SMS,
-                                SmsChannelTemplateEnum.SERVICE_STATUS_CHANGE
+                                SmsType.ALIYUN_SMS,
+                                monitorMobilePropertiesConfig.getMobile().getSign(),
+                                monitorMobilePropertiesConfig.getMobile().getTemplateCode()
                         ));
             }
 
             //开启钉钉通知
             if (monitorMobilePropertiesConfig.getDingTalk().getEnabled()) {
-                log.info("开始钉钉通知，内容：{}", text);
+                log.info("dingtalk notify start,content:{}", text);
                 rabbitTemplate.convertAndSend(MqQueueConstant.DINGTALK_SERVICE_STATUS_CHANGE, text);
             }
         } else {
