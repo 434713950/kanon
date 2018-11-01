@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: kanon-gateway
+  profiles:
+    active: dev
+  cloud:
+    config:
+      fail-fast: true
+      discovery:
+        service-id: kanon-config-server
+        enabled: true
+      profile: ${spring.profiles.active}
+      label: ${spring.profiles.active}
+
+logging:
+  level: error
+
+---
+spring:
+  profiles: dev
+eureka:
+  server:
+    user:
+      name: air
+      password: clannad
+    ip: 127.0.0.1
+    host: 1025
+    name: eureka
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 20
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.server.user.name}:${eureka.server.user.password}@${eureka.server.ip}:${eureka.server.host}/${eureka.server.name}
+    registry-fetch-interval-seconds: 10
+
+---
+spring:
+  profiles: prd
+
+eureka:
+  server:
+    user:
+      name: air
+      password: clannad
+    ip: 127.0.0.1
+    host: 1025
+    name: eureka
+  instance:
+    prefer-ip-address: true
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.server.user.name}:${eureka.server.user.password}@${eureka.server.ip}:${eureka.server.host}/${eureka.server.name}
