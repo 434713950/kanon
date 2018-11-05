@@ -32,10 +32,10 @@ public class KanonMonitorApplication {
         SpringApplication.run(KanonMonitorApplication.class, args);
     }
 
-    @Configuration
+  /*  @Configuration
     public static class NotifierConfig {
         @Bean
-        @Primary
+//        @Primary
         public RemindingNotifier remindingNotifier() {
             RemindingNotifier notifier = new RemindingNotifier(filteringNotifier(loggerNotifier()));
             notifier.setReminderPeriod(TimeUnit.SECONDS.toMillis(10));
@@ -56,5 +56,5 @@ public class KanonMonitorApplication {
         public LoggingNotifier loggerNotifier() {
             return new LoggingNotifier();
         }
-    }
+    }*/
 }

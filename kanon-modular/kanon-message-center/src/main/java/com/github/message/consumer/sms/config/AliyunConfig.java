@@ -1,11 +1,9 @@
-package com.github.sms.config;
+package com.github.message.consumer.sms.config;
 
 import lombok.Data;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
-
-import java.util.Map;
 
 /**
  * <p>阿里云服务必备的认证信息</p>

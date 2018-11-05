@@ -1,4 +1,4 @@
-package com.github.sms.handler;
+package com.github.message.handler;
 
 import com.github.kanon.common.notify.NotifyTemplate;
 

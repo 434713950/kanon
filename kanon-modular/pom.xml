@@ -13,7 +13,7 @@
     <packaging>pom</packaging>
     <modules>
         <module>kanon-upms-service</module>
-        <module>kanon-sms-service</module>
+        <module>kanon-message-center</module>
     </modules>
 
 

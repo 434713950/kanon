@@ -1,4 +1,4 @@
-package com.github.sms.handler;
+package com.github.message.consumer.sms.handler;
 
 import com.aliyuncs.DefaultAcsClient;
 import com.aliyuncs.IAcsClient;
@@ -7,10 +7,11 @@ import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
 import com.aliyuncs.exceptions.ClientException;
 import com.aliyuncs.profile.DefaultProfile;
 import com.aliyuncs.profile.IClientProfile;
-import com.github.kanon.common.constants.SmsType;
+import com.github.kanon.common.constants.MessageChannel;
 import com.github.kanon.common.notify.SmsNotifyTemplate;
-import com.github.sms.config.AliyunConfig;
-import com.github.sms.exception.SmsSendException;
+import com.github.message.exception.MessagePushFailException;
+import com.github.message.handler.AbstractNotifyMessageHandler;
+import com.github.message.consumer.sms.config.AliyunConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -23,8 +24,8 @@ import org.springframework.util.StringUtils;
  * @date 2018/11/1
  */
 @Slf4j
-@Component(SmsType.ALIYUN_SMS)
-public class SmsNotifyMessageHandler extends AbstractNotifyMessageHandler<SmsNotifyTemplate>{
+@Component(MessageChannel.ALIYUN_SMS)
+public class SmsNotifyMessageHandler extends AbstractNotifyMessageHandler<SmsNotifyTemplate> {
 
     /**
      * 产品名称
@@ -42,10 +43,10 @@ public class SmsNotifyMessageHandler extends AbstractNotifyMessageHandler<SmsNot
     @Override
     public void check(SmsNotifyTemplate notifyTemplate) {
         if (StringUtils.isEmpty(notifyTemplate.getMobile())){
-            throw new SmsSendException("Lack of cell phone number!");
+            throw new MessagePushFailException("Lack of cell phone number!");
         }
         if (StringUtils.isEmpty(notifyTemplate.getContext())){
-            throw new SmsSendException("Lack of sms context!");
+            throw new MessagePushFailException("Lack of message context!");
         }
     }
 
@@ -60,8 +61,7 @@ public class SmsNotifyMessageHandler extends AbstractNotifyMessageHandler<SmsNot
         try {
             DefaultProfile.addEndpoint("cn-hangzhou", "cn-hangzhou", PORDUCT, DOMAIN);
         } catch (ClientException e) {
-            log.error("init sms sdk error",e);
-            return false;
+            throw new MessagePushFailException("init message sdk error",e);
         }
         IAcsClient acsClient = new DefaultAcsClient(profile);
 
@@ -70,7 +70,7 @@ public class SmsNotifyMessageHandler extends AbstractNotifyMessageHandler<SmsNot
         //必填:待发送手机号
         request.setPhoneNumbers(notifyTemplate.getMobile());
         //必填:短信签名-可在短信控制台中找到
-        request.setSignName(notifyTemplate.getSignName());
+        request.setSignName(notifyTemplate.getSign());
         //必填:短信模板-可在短信控制台中找到
         request.setTemplateCode(notifyTemplate.getTemplate());
         //可选:模板中的变量替换JSON串,如模板内容为"亲爱的${name},您的验证码为${code}"时,此处的值为
@@ -80,16 +80,15 @@ public class SmsNotifyMessageHandler extends AbstractNotifyMessageHandler<SmsNot
 
         try {
             SendSmsResponse sendSmsResponse = acsClient.getAcsResponse(request);
-            log.info("sms send finish! mobile:{},response status:{}",notifyTemplate.getMobile(),sendSmsResponse.getCode());
+            log.info("message send finish! mobile:{},response status:{},response msg:{}",notifyTemplate.getMobile(),sendSmsResponse.getCode(),sendSmsResponse.getMessage());
         } catch (ClientException e) {
-            log.error("sms send error",e);
-            return false;
+            throw new MessagePushFailException("message send error",e);
         }
         return true;
     }
 
     @Override
     public void fail(SmsNotifyTemplate notifyTemplate) {
-        log.error("sms send fail -> direct:{} -> mobile:{}",notifyTemplate.getType(),notifyTemplate.getMobile());
+        log.error("message send fail -> direct:{} -> mobile:{}",notifyTemplate.getChannel(),notifyTemplate.getMobile());
     }
 }

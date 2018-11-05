@@ -22,20 +22,9 @@ public class SmsNotifyTemplate extends NotifyTemplate{
     private String context;
 
     /**
-     * 短信通道
-     */
-    private String channel;
-
-    /**
-     * 短信类型(验证码或者通知短信)
-     * 暂时不用，留着后面存数据库备用吧
-     */
-    private String type;
-
-    /**
      * 短信签名
      */
-    private String signName;
+    private String sign;
 
     /**
      * 短信模板
@@ -43,10 +32,10 @@ public class SmsNotifyTemplate extends NotifyTemplate{
     private String template;
 
     public SmsNotifyTemplate(String mobile, String context, String channel, String sign, String templateCode){
+        super(channel);
         this.mobile = mobile;
         this.context = context;
-        this.channel = channel;
-        this.signName = sign;
+        this.sign = sign;
         this.template = templateCode;
     }
 }

@@ -1,9 +1,10 @@
-package com.github.sms.consumer;
+package com.github.message.consumer.sms;
 
 import com.github.kanon.common.constants.MqQueueConstant;
 import com.github.kanon.common.notify.SmsNotifyTemplate;
-import com.github.sms.handler.NotifyMessageHandler;
-import com.github.sms.handler.SmsNotifyMessageHandler;
+import com.github.message.exception.MessagePushFailException;
+import com.github.message.handler.NotifyMessageHandler;
+import com.github.message.consumer.sms.handler.SmsNotifyMessageHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -30,13 +31,12 @@ public class SmsServiceChangeConsumer {
     public void receive(SmsNotifyTemplate notifyTemplate) {
         long startTime = System.currentTimeMillis();
         log.info("consumer receive message -> mobile：{} -> message：{} ", notifyTemplate.getMobile(), notifyTemplate.getContext());
-        SmsNotifyMessageHandler notifyMessageHandler = (SmsNotifyMessageHandler) notifyMessageHandlerMap.get(notifyTemplate.getType());
+        SmsNotifyMessageHandler notifyMessageHandler = (SmsNotifyMessageHandler) notifyMessageHandlerMap.get(notifyTemplate.getChannel());
         if (notifyMessageHandler == null) {
-            log.error("having not corresponding notifyMessageHandler,can not send message");
-            return;
+            throw new MessagePushFailException("bean get null, having not corresponding notifyMessageHandler,can not send message");
         }
         notifyMessageHandler.excute(notifyTemplate);
         long useTime = System.currentTimeMillis() - startTime;
-        log.info("transfer {} sms server finish，time consuming {}ms", notifyTemplate.getType(), useTime);
+        log.info("transfer {} message server finish，time consuming {}ms", notifyTemplate.getChannel(), useTime);
     }
 }

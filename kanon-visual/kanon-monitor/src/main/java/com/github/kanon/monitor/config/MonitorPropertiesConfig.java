@@ -17,5 +17,5 @@ public class MonitorPropertiesConfig {
 
     private MonitorMobileProperties mobile;
 
-    private MonitorDingTalkPropertiesConfig dingTalk;
+    private MonitorDingTalkPropertiesConfig dingtalk;
 }

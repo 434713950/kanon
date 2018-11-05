@@ -14,7 +14,7 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 @EnableDiscoveryClient
 @EnableFeignClients
-@ComponentScan(basePackages = {"com.pc.kanon.auth", "com.pc.kanon.common"})
+@ComponentScan(basePackages = {"com.github.kanon.auth", "com.github.kanon.common"})
 public class KanonAuthServerApplication {
 
     public static void main(String[] args) {

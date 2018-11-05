@@ -9,13 +9,19 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>kanon-sms-service</artifactId>
+    <artifactId>kanon-message-center</artifactId>
 
     <dependencies>
         <dependency>
             <groupId>com.github</groupId>
             <artifactId>kanon-common</artifactId>
             <version>${kanon.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.taobao</groupId>
+                    <artifactId>taobao-sdk-java-auto</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.aliyun</groupId>
@@ -26,6 +32,11 @@
             <groupId>com.aliyun</groupId>
             <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
             <version>1.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.taobao</groupId>
+            <artifactId>taobao-sdk-java-auto</artifactId>
+            <version>1479188381469</version>
         </dependency>
     </dependencies>
 
