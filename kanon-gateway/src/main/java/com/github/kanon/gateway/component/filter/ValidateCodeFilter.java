@@ -2,7 +2,7 @@ package com.github.kanon.gateway.component.filter;
 
 import com.alibaba.fastjson.JSONObject;
 import com.github.kanon.common.base.config.FilterIgnorePropertiesConfig;
-import com.github.kanon.common.base.vo.ResponseParam;
+import com.github.kanon.common.base.model.vo.ResponseParam;
 import com.github.kanon.common.constants.KanonSecurityConstants;
 import com.github.kanon.common.exceptions.ErrorMsgException;
 import com.github.kanon.common.utils.system.AuthUtils;

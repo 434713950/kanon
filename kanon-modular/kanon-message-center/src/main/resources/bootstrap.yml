@@ -1,6 +1,6 @@
 spring:
   application:
-    name: kanon-message-service
+    name: kanon-message-center
   profiles:
     active: dev
   cloud:
@@ -11,16 +11,6 @@ spring:
         enabled: true
       profile: ${spring.profiles.active}
       label: ${spring.profiles.active}
-
-aliyun:
-  access_key_id: LTAIb3SUxr20iO97
-  access_key_secret: tb88N10tTHoRNTzLHzKvTpXVahK5eI
-
-dingtalk:
-  #钉钉企业id
-  crop_id: ding5c225a9412eac936
-  #钉钉企业密码
-  crop_secret: gE4BpPK3jVCByg1xNcDRjD-Ygl9AqxQtxcAPKQK-D4A--f2S7pnfmPPGhxZ-nCTM
 
 ---
 spring:

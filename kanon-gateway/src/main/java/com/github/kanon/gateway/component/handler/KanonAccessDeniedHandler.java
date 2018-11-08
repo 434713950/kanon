@@ -1,7 +1,7 @@
 package com.github.kanon.gateway.component.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.github.kanon.common.base.vo.ResponseParam;
+import com.github.kanon.common.base.model.vo.ResponseParam;
 import com.github.kanon.common.constants.CommonConstant;
 import com.github.kanon.common.constants.MessageConstants;
 import lombok.extern.slf4j.Slf4j;

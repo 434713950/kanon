@@ -1,6 +1,6 @@
 package com.github.kanon.common.base.controller;
 
-import com.github.kanon.common.base.vo.ResponseParam;
+import com.github.kanon.common.base.model.vo.ResponseParam;
 import com.github.kanon.common.constants.MessageConstants;
 import com.github.kanon.common.utils.spring.I18nUtil;
 import org.springframework.beans.factory.annotation.Autowired;

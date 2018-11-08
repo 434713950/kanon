@@ -14,6 +14,7 @@
     <modules>
         <module>kanon-upms-service</module>
         <module>kanon-message-center</module>
+        <module>kanon-logger-center</module>
     </modules>
 
 

@@ -11,5 +11,12 @@
 
     <artifactId>kanon-upms-service</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.github</groupId>
+            <artifactId>kanon-autoconfiguration-datasource-mybatis</artifactId>
+            <version>${kanon.version}</version>
+        </dependency>
+    </dependencies>
 
 </project>

@@ -17,7 +17,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
  */
 @EnableZuulProxy
 @EnableFeignClients
-//开启psot方法的注解使用
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @SpringCloudApplication
 @EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})

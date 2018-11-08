@@ -1,7 +1,7 @@
 package com.github.kanon.auth.feign.fallback;
 
 import com.github.kanon.auth.feign.UserService;
-import com.github.kanon.common.base.vo.UserVo;
+import com.github.kanon.common.base.model.vo.UserVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 

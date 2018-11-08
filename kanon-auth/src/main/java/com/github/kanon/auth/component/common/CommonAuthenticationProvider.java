@@ -3,7 +3,7 @@ package com.github.kanon.auth.component.common;
 import com.github.kanon.auth.exception.AuthFailException;
 import com.github.kanon.auth.feign.UserService;
 import com.github.kanon.auth.util.UserDetailsImpl;
-import com.github.kanon.common.base.vo.UserVo;
+import com.github.kanon.common.base.model.vo.UserVo;
 import com.github.kanon.common.constants.UserStatus;
 import lombok.Getter;
 import lombok.Setter;

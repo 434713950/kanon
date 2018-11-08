@@ -16,6 +16,7 @@
         <module>kanon-gateway</module>
         <module>kanon-visual</module>
         <module>kanon-modular</module>
+        <module>kanon-auto-configuration</module>
     </modules>
 
     <parent>

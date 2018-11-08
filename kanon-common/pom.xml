@@ -44,24 +44,6 @@
             <artifactId>spring-session-data-redis</artifactId>
         </dependency>
 
-        <!-- MySql数据库驱动 -->
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-
-        <!--mybatis-plus-->
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatisplus-spring-boot-starter</artifactId>
-            <version>1.0.5</version>
-        </dependency>
-        <dependency>
-            <groupId>com.baomidou</groupId>
-            <artifactId>mybatis-plus</artifactId>
-            <version>2.1.9</version>
-        </dependency>
-
         <!--swagger2-->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -95,13 +77,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-bus-amqp</artifactId>
-        </dependency>
-
-        <!--钉钉sdk-->
-        <dependency>
-            <groupId>com.taobao</groupId>
-            <artifactId>taobao-sdk-java-auto</artifactId>
-            <version>1479188381469</version>
         </dependency>
     </dependencies>
 

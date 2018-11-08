@@ -1,7 +1,7 @@
 package com.github.kanon.gateway.component.filter;
 
 import com.alibaba.fastjson.JSONObject;
-import com.github.kanon.common.base.vo.ResponseParam;
+import com.github.kanon.common.base.model.vo.ResponseParam;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import lombok.extern.slf4j.Slf4j;

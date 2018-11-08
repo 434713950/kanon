@@ -1,6 +1,6 @@
 package com.github.kanon.gateway.feign.fallback;
 
-import com.github.kanon.common.base.entity.Menu;
+import com.github.kanon.common.base.model.entity.Auth;
 import com.github.kanon.gateway.feign.MenuService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -17,7 +17,7 @@ import java.util.Set;
 @Service
 public class MenuServiceFallbackImpl implements MenuService {
     @Override
-    public Set<Menu> findMenuByRole(String role) {
+    public Set<Auth> findRoleAuth(String role) {
         log.error("调用{}异常{}","findMenuByRole",role);
         return new LinkedHashSet<>();
     }

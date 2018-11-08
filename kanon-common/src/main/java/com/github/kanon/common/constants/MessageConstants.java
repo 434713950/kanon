@@ -33,6 +33,11 @@ public interface MessageConstants {
     Integer OPTION_FAILED_CODE = 406;
 
     /**
+     * 验证参数错误并通知前台刷新
+     */
+    Integer OPTION_FAILED_REFRESH_CODE = 50;
+
+    /**
      * 权限不足信息
      */
     Integer OPTION_NOT_AUTHORITY_CODE = 405;

@@ -12,8 +12,7 @@
     <artifactId>kanon-visual</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>kanon-zipkin-db</module>
-        <module>kanon-zipkin-elk</module>
+        <module>kanon-zipkin-es</module>
         <module>kanon-monitor</module>
     </modules>
 

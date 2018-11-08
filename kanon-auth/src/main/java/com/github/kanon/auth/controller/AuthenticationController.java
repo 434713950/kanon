@@ -1,6 +1,6 @@
 package com.github.kanon.auth.controller;
 
-import com.github.kanon.common.base.vo.ResponseParam;
+import com.github.kanon.common.base.model.vo.ResponseParam;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cache.annotation.CacheEvict;

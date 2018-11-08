@@ -1,6 +1,6 @@
 package com.github.kanon.gateway.component.config;
 
-import com.github.kanon.common.base.entity.SysZuulRoute;
+import com.github.kanon.common.base.model.entity.ZuulRoute;
 import com.github.kanon.common.constants.ZuulConstants;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -74,8 +74,8 @@ public class DynamicRouteLocator extends DiscoveryClientRouteLocator {
             return routes;
         }
 
-        List<SysZuulRoute> results = (List<SysZuulRoute>) obj;
-        for (SysZuulRoute result : results) {
+        List<ZuulRoute> results = (List<ZuulRoute>) obj;
+        for (ZuulRoute result : results) {
             if (StringUtils.isEmpty(result.getPath()) && StringUtils.isEmpty(result.getUrl())) {
                 continue;
             }
@@ -88,7 +88,7 @@ public class DynamicRouteLocator extends DiscoveryClientRouteLocator {
                 zuulRoute.setRetryable(StringUtils.equals(result.getRetryable(), "0") ? Boolean.FALSE : Boolean.TRUE);
                 zuulRoute.setStripPrefix(StringUtils.equals(result.getStripPrefix(), "0") ? Boolean.FALSE : Boolean.TRUE);
                 zuulRoute.setUrl(result.getUrl());
-                List<String> sensitiveHeadersList = Arrays.asList(StringUtils.split(result.getSensitiveHeaderList(), ","));
+                List<String> sensitiveHeadersList = Arrays.asList(StringUtils.split(result.getSensitiveheadersList(), ","));
                 if (sensitiveHeadersList != null) {
                     Set<String> sensitiveHeaderSet = new LinkedHashSet<>();
                     sensitiveHeadersList.forEach(sensitiveHeader -> sensitiveHeaderSet.add(sensitiveHeader));

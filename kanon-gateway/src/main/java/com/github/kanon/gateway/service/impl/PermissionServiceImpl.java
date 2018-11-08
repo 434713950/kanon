@@ -1,6 +1,6 @@
 package com.github.kanon.gateway.service.impl;
 
-import com.github.kanon.common.base.entity.Menu;
+import com.github.kanon.common.base.model.entity.Auth;
 import com.github.kanon.gateway.feign.MenuService;
 import com.github.kanon.gateway.service.PermissionService;
 import com.github.pcutil.common.CollectionUtil;
@@ -43,20 +43,20 @@ public class PermissionServiceImpl implements PermissionService {
                 return hasPermission;
             }
 
-            Set<Menu> authMenus = new HashSet<>();
+            Set<Auth> authMethodSet = new HashSet<>();
             for (SimpleGrantedAuthority authority : grantedAuthorityList) {
                 if (!StringUtils.equals(authority.getAuthority(), "ROLE_USER")) {
-                    Set<Menu> menuSet = menuService.findMenuByRole(authority.getAuthority());
-                    if (!CollectionUtil.isBlank(menuSet)) {
-                        authMenus.addAll(menuSet);
+                    Set<Auth> roleAuthSet = menuService.findRoleAuth(authority.getAuthority());
+                    if (CollectionUtil.isNotBlank(roleAuthSet)) {
+                        authMethodSet.addAll(roleAuthSet);
                     }
                 }
             }
 
-            for (Menu menu : authMenus) {
-                if (StringUtils.isNotEmpty(menu.getMenuMethod())
-                        && antPathMatcher.match(menu.getMenuMethod(), request.getRequestURI())
-                        && request.getMethod().equalsIgnoreCase(menu.getMethodType())) {
+            for (Auth auth : authMethodSet) {
+                if (StringUtils.isNotEmpty(auth.getMethod()) &&
+                        antPathMatcher.match(auth.getMethod(), request.getRequestURI()) &&
+                        request.getMethod().equalsIgnoreCase(auth.getMethodType())) {
                     hasPermission = true;
                     break;
                 }

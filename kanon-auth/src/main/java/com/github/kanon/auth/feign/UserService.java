@@ -1,7 +1,7 @@
 package com.github.kanon.auth.feign;
 
 import com.github.kanon.auth.feign.fallback.UserServiceFallbackImpl;
-import com.github.kanon.common.base.vo.UserVo;
+import com.github.kanon.common.base.model.vo.UserVo;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

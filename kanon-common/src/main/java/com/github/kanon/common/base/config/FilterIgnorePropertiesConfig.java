@@ -10,9 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @Author: PengCheng
- * @Description: 白名单配置
- * @Date: 2018/8/3
+ * <p>白名单配置</p>
+ *
+ * @author PengCheng
+ * @date 2018/8/3
  */
 @Data
 @Configuration

@@ -2,7 +2,7 @@ package com.github.kanon.auth.service;
 
 import com.github.kanon.auth.util.UserDetailsImpl;
 import com.github.kanon.auth.feign.UserService;
-import com.github.kanon.common.base.vo.UserVo;
+import com.github.kanon.common.base.model.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

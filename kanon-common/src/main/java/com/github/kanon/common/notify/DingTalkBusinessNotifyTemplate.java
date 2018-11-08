@@ -1,6 +1,5 @@
 package com.github.kanon.common.notify;
 
-import com.dingtalk.api.request.OapiMessageCorpconversationAsyncsendV2Request;
 import lombok.Data;
 
 /**

@@ -1,7 +1,7 @@
 package com.github.kanon.auth.util;
 
-import com.github.kanon.common.base.vo.RoleVo;
-import com.github.kanon.common.base.vo.UserVo;
+import com.github.kanon.common.base.model.vo.RoleVo;
+import com.github.kanon.common.base.model.vo.UserVo;
 import com.github.kanon.common.constants.UserStatus;
 import lombok.Getter;
 import lombok.Setter;

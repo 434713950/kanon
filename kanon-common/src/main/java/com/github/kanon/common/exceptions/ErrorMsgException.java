@@ -1,6 +1,5 @@
 package com.github.kanon.common.exceptions;
 
-import com.github.kanon.common.constants.MessageConstants;
 import lombok.Data;
 
 /**
@@ -10,13 +9,21 @@ import lombok.Data;
 @Data
 public class ErrorMsgException  extends RuntimeException{
 
-	public static final Integer CODE = MessageConstants.OPTION_FAILED_CODE;
-
 	private String msg;
 
 	private String[] text;
 
+	/**
+	 * 是否要刷新页面
+	 */
+	private Boolean isRefresh;
+
 	public ErrorMsgException(String msg,String... text){
+		this(false,msg,text);
+	}
+
+	public ErrorMsgException(Boolean isRefresh,String msg,String... text){
+		this.isRefresh = isRefresh;
 		this.msg = msg;
 		this.text=text;
 	}

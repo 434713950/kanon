@@ -1,6 +1,6 @@
 package com.github.kanon.gateway.feign;
 
-import com.github.kanon.common.base.entity.Menu;
+import com.github.kanon.common.base.model.entity.Auth;
 import com.github.kanon.gateway.feign.fallback.MenuServiceFallbackImpl;
 import org.springframework.cloud.netflix.feign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +16,11 @@ import java.util.Set;
 @FeignClient(name = "${server.upms.name}", fallback = MenuServiceFallbackImpl.class)
 public interface MenuService {
     /**
-     * 通过角色名查询菜单
+     * 查询出角色的操作权限
      *
      * @param role 角色名称
      * @return 菜单列表
      */
-    @GetMapping(value = "/menu/findMenuByRole/{role}")
-    Set<Menu> findMenuByRole(@PathVariable("role") String role);
+    @GetMapping(value = "/menu/findRoleAuth/{role}")
+    Set<Auth> findRoleAuth(@PathVariable("role") String role);
 }

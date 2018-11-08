@@ -3,7 +3,7 @@ package com.github.kanon.auth.handler;
 import com.alibaba.fastjson.JSON;
 import com.github.kanon.auth.exception.AuthFailException;
 import com.github.kanon.auth.exception.BadAccessTokenException;
-import com.github.kanon.common.base.vo.ResponseParam;
+import com.github.kanon.common.base.model.vo.ResponseParam;
 import com.github.kanon.common.utils.spring.I18nUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;

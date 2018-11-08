@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration debug="false" scan="false">
     <springProperty scop="context" name="spring.application.name" source="spring.application.name" defaultValue="pig"/>
-    <property name="log.path" value="/logs/${spring.application.name}" />
-    <!-- Console log output -->
+    <property name="logger.path" value="/logs/${spring.application.name}" />
+    <!-- Console logger output -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
             <pattern>%d{MM-dd HH:mm:ss.SSS} %-5level [%logger{50}] - %msg%n</pattern>
@@ -11,9 +11,9 @@
 
     <!-- Log file debug output -->
     <appender name="debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.path}/debug.log</file>
+        <file>${logger.path}/debug.logger</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${log.path}/%d{yyyy-MM}/debug.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <fileNamePattern>${logger.path}/%d{yyyy-MM}/debug.%d{yyyy-MM-dd}.%i.logger.gz</fileNamePattern>
             <maxFileSize>50MB</maxFileSize>
             <maxHistory>30</maxHistory>
         </rollingPolicy>
@@ -24,9 +24,9 @@
 
     <!-- Log file error output -->
     <appender name="error" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>${log.path}/error.log</file>
+        <file>${logger.path}/error.logger</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
-            <fileNamePattern>${log.path}/%d{yyyy-MM}/error.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <fileNamePattern>${logger.path}/%d{yyyy-MM}/error.%d{yyyy-MM-dd}.%i.logger.gz</fileNamePattern>
             <maxFileSize>50MB</maxFileSize>
             <maxHistory>30</maxHistory>
         </rollingPolicy>

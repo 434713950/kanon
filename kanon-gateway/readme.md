@@ -3,7 +3,7 @@
 ###############
 #相关配置
 -- 转发日志使用的mq队列名 （选设）
-mq.queue.log=kanon_log
+mq.queue.logger=kanon_log
 
 -- 演示环境校验开启（选设）
 security.validate.preview=false
