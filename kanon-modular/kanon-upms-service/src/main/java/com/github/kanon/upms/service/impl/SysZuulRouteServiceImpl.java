@@ -2,6 +2,7 @@ package com.github.kanon.upms.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
+import com.github.kanon.common.base.model.entity.ZuulRoute;
 import com.github.kanon.common.constants.CommonConstant;
 import com.github.kanon.common.constants.ZuulConstants;
 import com.github.kanon.common.exceptions.ErrorMsgException;
@@ -42,11 +43,11 @@ public class SysZuulRouteServiceImpl extends MyBatisPlusServiceImpl<SysZuulRoute
     @Override
     @Transactional(readOnly = true,rollbackFor = Exception.class)
     public Boolean applyZuulRoute(){
-        List<ZuulProperties.ZuulRoute> zuulRoutes = new ArrayList<>();
+        List<ZuulRoute> zuulRoutes = new ArrayList<>();
         List<SysZuulRoute> enableSysZuulRoutes = findAllEnableSysZuulRoute();
         if (CollectionUtil.isNotBlank(enableSysZuulRoutes)){
             enableSysZuulRoutes.forEach(enableSysZuulRoute -> {
-                ZuulProperties.ZuulRoute zuulRoute = new ZuulProperties.ZuulRoute();
+                ZuulRoute zuulRoute = new ZuulRoute();
                 BeanUtils.copyProperties(enableSysZuulRoute,zuulRoute);
 
                 Set<String> sensitiveheaders = new LinkedHashSet<>();

@@ -1,7 +1,7 @@
 package com.github.kanon.gateway.component.config;
 
+import com.github.kanon.common.base.model.entity.ZuulRoute;
 import com.github.kanon.common.constants.ZuulConstants;
-import com.github.pcutil.common.CollectionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.cloud.client.ServiceInstance;
@@ -71,8 +71,8 @@ public class DynamicRouteLocator extends DiscoveryClientRouteLocator {
 
         Object obj = redisTemplate.opsForValue().get(ZuulConstants.CACHE_ROUTE_KEY_SUFFIX);
         if (obj != null) {
-            List<ZuulProperties.ZuulRoute> results = (List<ZuulProperties.ZuulRoute>) obj;
-            for (ZuulProperties.ZuulRoute zuulRoute : results) {
+            List<ZuulRoute> results = (List<ZuulRoute>) obj;
+            for (ZuulRoute zuulRoute : results) {
                 if (StringUtils.isEmpty(zuulRoute.getPath()) && StringUtils.isEmpty(zuulRoute.getUrl())) {
                     continue;
                 }
