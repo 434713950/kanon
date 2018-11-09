@@ -3,6 +3,7 @@ package com.github.kanon.logger.model.pojo;
 import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableLogic;
 import com.baomidou.mybatisplus.annotations.TableName;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.github.pcutil.common.DateUtil;
@@ -58,6 +59,7 @@ public class SysLog extends Model<SysLog> {
     private String serviceId;
 
     @ApiModelProperty("假删标志")
+    @TableLogic
     private Boolean delFlag;
 
     @ApiModelProperty("接口调用时间")

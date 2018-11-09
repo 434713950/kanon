@@ -49,18 +49,4 @@ public class SysLogServiceImpl extends MyBatisPlusServiceImpl<SysLogMapper,SysLo
             deleteBatchIds(ids);
         }
     }
-
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void mockDeleteSysLog(List<Long> ids){
-        if (CollectionUtil.isNotBlank(ids)) {
-            List<SysLog> logs = selectBatchIds(ids);
-            if (CollectionUtil.isNotBlank(logs)){
-                logs.forEach(log -> {
-                    log.setDelFlag(true);
-                });
-                updateBatchById(logs);
-            }
-        }
-    }
 }

@@ -26,10 +26,4 @@ public interface SysLogService extends MyBatisPlusService<SysLog> {
      * @param ids   日志id
      */
     void deleteSysLog(List<Long> ids);
-
-    /**
-     * 假删
-     * @param ids   日志ID
-     */
-    void mockDeleteSysLog(List<Long> ids);
 }

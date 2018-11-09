@@ -1,6 +1,6 @@
 spring:
   application:
-    name: kanon-logger-center
+    name: kanon-upms-service
   profiles:
     active: dev
   cloud:
@@ -12,7 +12,7 @@ spring:
       profile: ${spring.profiles.active}
       label: ${spring.profiles.active}
   datasource:
-    schema: classpath:sys_log.sql
+    schema: classpath:schema.sql
 security:
   basic:
     enabled: false

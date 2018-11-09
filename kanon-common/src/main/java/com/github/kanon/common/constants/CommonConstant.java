@@ -8,7 +8,7 @@ package com.github.kanon.common.constants;
 public interface CommonConstant {
 
     /**
-     * 删除标记
+     * 删除标记,表设计统一按此字段名设计
      */
     String DEL_FLAG = "del_flag";
 
@@ -21,4 +21,5 @@ public interface CommonConstant {
      * 上下文编码
      */
     String CONTENT_ENCODE = "UTF-8";
+
 }

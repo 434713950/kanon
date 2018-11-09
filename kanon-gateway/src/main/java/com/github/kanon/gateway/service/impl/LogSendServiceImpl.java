@@ -82,7 +82,7 @@ public class LogSendServiceImpl implements LogSendService {
     }
 
     /**
-     * 生成初始的日志
+     * 生成基本的日志信息
      * @param requestContext
      * @return
      */

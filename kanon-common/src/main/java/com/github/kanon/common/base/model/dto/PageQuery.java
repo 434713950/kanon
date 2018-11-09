@@ -11,14 +11,16 @@ import lombok.Data;
 @Data
 public class PageQuery extends BaseDto {
 
-    @ApiModelProperty(value = "当前页（默认1）")
+    @ApiModelProperty(value = "当前页(默认1)")
     private Integer page = 1;
 
-
-    @ApiModelProperty(value = "每页大小（默认10）")
+    @ApiModelProperty(value = "每页大小(默认10)")
     private Integer pageSize = 10;
 
-    private Integer limitPage;
+    @ApiModelProperty(value = "是否需要分页(默认需要分页)")
+    private Boolean requirePage = true;
+
+//    private Integer limitPage;
 
     /**
      * 该方式用于获取sql中额limit参数

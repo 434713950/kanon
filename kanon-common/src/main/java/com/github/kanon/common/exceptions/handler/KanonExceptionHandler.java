@@ -9,10 +9,14 @@ import com.github.kanon.common.exceptions.LoginNotException;
 import com.github.kanon.common.utils.spring.I18nUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
+
+import java.util.List;
 
 /**
  * @Author: PengCheng
@@ -38,21 +42,33 @@ public class KanonExceptionHandler {
 
     @ExceptionHandler(LoginNotException.class)
     public ResponseParam handleLoginNotException(LoginNotException e){
-        String msg = i18nUtil.i18nHandler(LoginNotException.MSG);
-        return new ResponseParam(LoginNotException.CODE,msg);
+        return new ResponseParam(MessageConstants.OPTION_NOT_LOGIN_CODE,i18nUtil.i18nHandler(MessageConstants.OPTION_LOGIN_NOT_MSG));
     }
 
     @ExceptionHandler(InitialPasswordException.class)
     public ResponseParam handleInitialPasswordException(InitialPasswordException e){
-        String msg = i18nUtil.i18nHandler(InitialPasswordException.MSG);
-        return new ResponseParam(InitialPasswordException.CODE,msg);
+        return new ResponseParam(MessageConstants.OPTION_INITIAL_PASSWORD_CODE,i18nUtil.i18nHandler(MessageConstants.OPTION_INITIAL_PASSWORD_FIRST));
     }
 
     @ExceptionHandler(AuthorityException.class)
     public ResponseParam handleAuthorityException(AuthorityException e){
-        String msg = i18nUtil.i18nHandler(AuthorityException.MSG);
-        return new ResponseParam(AuthorityException.CODE,msg);
+        return new ResponseParam(MessageConstants.OPTION_NOT_AUTHORITY_CODE,i18nUtil.i18nHandler(MessageConstants.OPTION_NOT_AUTHORITY_MSG));
     }
+
+    /**
+     * 处理SpringValidation的验证信息
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseParam handleMethodArgumentNotValidException(MethodArgumentNotValidException e){
+        List<ObjectError> errors =e.getBindingResult().getAllErrors();
+        StringBuffer errorMsg=new StringBuffer();
+        errors.stream().forEach(x -> errorMsg.append(x.getDefaultMessage()).append("\r\n"));
+        return new ResponseParam(MessageConstants.OPTION_FAILED_CODE,errorMsg.toString());
+    }
+
+
 
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)

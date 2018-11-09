@@ -41,7 +41,7 @@ public class SysLogController extends BaseController {
     @ApiImplicitParam(name = "ids",value = "系统日志id数组", required = true, dataType = "List")
     @DeleteMapping(value = "/delete")
     public ResponseParam delete(@RequestBody List<Long> ids){
-        sysLogService.mockDeleteSysLog(ids);
+        sysLogService.deleteSysLog(ids);
         return getSuccessDeleteResult();
     }
 }
