@@ -71,7 +71,7 @@ public class SysZuulRouteController extends BaseController {
     }
 
     @ApiOperation(value="批量删除",tags="系统路由")
-    @ApiImplicitParam(name = "ids", required = true, dataType = "List")
+    @ApiImplicitParam(name = "ids", required = true, dataType = "List<Long>")
     @PostMapping("delete")
     public ResponseParam<Boolean> delete(@RequestBody List<Long> ids){
         if (CollectionUtil.isNotBlank(ids)) {
@@ -83,7 +83,6 @@ public class SysZuulRouteController extends BaseController {
     }
 
     @ApiOperation(value="应用路由配置(刷新配置)",tags="系统路由")
-    @ApiImplicitParam(name = "ids", required = true, dataType = "List")
     @GetMapping("apply")
     public ResponseParam<Boolean> apply(){
         return ResponseParam.success(sysZuulRouteService.applyZuulRoute());

@@ -20,6 +20,7 @@ import org.springframework.security.oauth2.provider.expression.OAuth2WebSecurity
  * @Description:    swagger服务资源配置
  * @Date: 2018/9/12
  */
+@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
 @Configuration
 @EnableResourceServer
 public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter {
@@ -42,8 +43,8 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
         filterIgnorePropertiesConfig.getUrls().forEach(
                 url -> registry.antMatchers(url).permitAll()
         );
-        registry.anyRequest()
-                .access("@permissionService.hasPermission(request,authentication)");
+        registry.anyRequest().permitAll();
+//                .access("@permissionService.hasPermission(request,authentication)");
     }
 
     @Override

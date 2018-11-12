@@ -16,6 +16,17 @@
             <groupId>com.github</groupId>
             <artifactId>kanon-autoconfiguration-datasource-mybatis</artifactId>
             <version>${kanon.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>com.github</groupId>
+                    <artifactId>kanon-common</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.github</groupId>
+            <artifactId>kanon-common</artifactId>
+            <version>${kanon.version}</version>
         </dependency>
     </dependencies>
 

@@ -1,6 +1,6 @@
 spring:
   application:
-    name: kanon-upms-service
+    name: kanon-upms-server
   profiles:
     active: dev
   cloud:
@@ -13,9 +13,17 @@ spring:
       label: ${spring.profiles.active}
   datasource:
     schema: classpath:schema.sql
+
+management:
+  context_path: /upms
+
+logging:
+  level: info
+
 security:
   basic:
     enabled: false
+
 
 ---
 spring:

@@ -13,5 +13,14 @@ import java.util.Set;
  * @date 2018/11/9
  */
 @Data
-public class ZuulRoute extends ZuulProperties.ZuulRoute implements Serializable {
+public class ZuulRoute implements Serializable {
+
+    private Long id;
+    private String path;
+    private String serviceId;
+    private String url;
+    private Boolean stripPrefix;
+    private Boolean retryable;
+    private Set<String> sensitiveHeaders;
+    private Boolean customSensitiveHeaders;
 }

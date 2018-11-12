@@ -27,7 +27,7 @@ public class SysZuulRoute extends Model<SysZuulRoute> {
      * router Id
      */
     @TableId
-    private Integer id;
+    private Long id;
 
     /**
      * 路由路径

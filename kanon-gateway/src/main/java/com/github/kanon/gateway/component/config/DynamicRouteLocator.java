@@ -2,8 +2,10 @@ package com.github.kanon.gateway.component.config;
 
 import com.github.kanon.common.base.model.entity.ZuulRoute;
 import com.github.kanon.common.constants.ZuulConstants;
+import com.github.pcutil.common.CollectionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
@@ -76,7 +78,18 @@ public class DynamicRouteLocator extends DiscoveryClientRouteLocator {
                 if (StringUtils.isEmpty(zuulRoute.getPath()) && StringUtils.isEmpty(zuulRoute.getUrl())) {
                     continue;
                 }
-                routes.put(zuulRoute.getPath(), zuulRoute);
+                ZuulProperties.ZuulRoute res = new ZuulProperties.ZuulRoute();
+                res.setId(zuulRoute.getServiceId());
+                res.setUrl(zuulRoute.getUrl());
+                res.setStripPrefix(zuulRoute.getStripPrefix());
+                res.setServiceId(zuulRoute.getServiceId());
+                res.setRetryable(zuulRoute.getRetryable());
+                res.setPath(zuulRoute.getPath());
+                if (CollectionUtil.isNotBlank(zuulRoute.getSensitiveHeaders())) {
+                    res.setSensitiveHeaders(zuulRoute.getSensitiveHeaders());
+                    res.setCustomSensitiveHeaders(true);
+                }
+                routes.put(zuulRoute.getPath(), res);
             }
         }
         return routes;
