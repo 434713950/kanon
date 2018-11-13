@@ -38,9 +38,8 @@ public class SysLogController extends BaseController {
     }
 
     @ApiOperation(value = "批量删除",tags = "系统日志")
-    @ApiImplicitParam(name = "ids",value = "系统日志id数组", required = true, dataType = "List")
-    @DeleteMapping(value = "/delete")
-    public ResponseParam delete(@RequestBody List<Long> ids){
+    @PostMapping(value = "/delete")
+    public ResponseParam delete(@RequestParam("ids") @RequestBody List<Long> ids){
         sysLogService.deleteSysLog(ids);
         return getSuccessDeleteResult();
     }

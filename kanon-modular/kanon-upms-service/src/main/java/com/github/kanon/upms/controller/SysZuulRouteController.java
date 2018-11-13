@@ -71,9 +71,8 @@ public class SysZuulRouteController extends BaseController {
     }
 
     @ApiOperation(value="批量删除",tags="系统路由")
-    @ApiImplicitParam(name = "ids", required = true, dataType = "List<Long>")
     @PostMapping("delete")
-    public ResponseParam<Boolean> delete(@RequestBody List<Long> ids){
+    public ResponseParam<Boolean> delete(@RequestParam("ids") @RequestBody List<Long> ids){
         if (CollectionUtil.isNotBlank(ids)) {
             if (sysZuulRouteService.deleteBatchIds(ids)){
                 sysZuulRouteService.applyZuulRoute();
