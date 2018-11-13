@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: kanon-config-server
+    name: kanon-config
   profiles:
     active: dev
   cloud:

@@ -28,13 +28,17 @@ eureka:
     user:
       name: air
       password: clannad
-    ip: 127.0.0.1
+    ip: 10.2.21.59
     host: 1025
     name: eureka
   instance:
+    # 优先使用IP地址方式进行注册服务
     prefer-ip-address: true
     lease-renewal-interval-in-seconds: 5
     lease-expiration-duration-in-seconds: 20
+    instance-id: ${spring.application.name}_${eureka.instance.ip-address}:${server.port}
+    #指定ip(eureka内网其它ip的情况下,必须指定当前服务的ip，否则默认本地局域网)
+    ip-address: 10.2.21.228
   client:
     serviceUrl:
       defaultZone: http://${eureka.server.user.name}:${eureka.server.user.password}@${eureka.server.ip}:${eureka.server.host}/${eureka.server.name}
