@@ -32,6 +32,9 @@ eureka:
     prefer-ip-address: true
     lease-renewal-interval-in-seconds: 5
     lease-expiration-duration-in-seconds: 20
+    instance-id: ${spring.application.name}_${eureka.instance.ip-address}:${server.port}
+    #指定ip(eureka内网其它ip的情况下,必须指定当前服务的ip，否则默认192.168.127.1)
+    ip-address: 10.2.21.228
   client:
     serviceUrl:
       defaultZone: http://${eureka.server.user.name}:${eureka.server.user.password}@${eureka.server.ip}:${eureka.server.host}/${eureka.server.name}

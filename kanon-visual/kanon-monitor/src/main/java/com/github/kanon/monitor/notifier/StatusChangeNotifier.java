@@ -39,14 +39,14 @@ public class StatusChangeNotifier extends AbstractStatusChangeNotifier {
         if (event instanceof ClientApplicationStatusChangedEvent) {
             log.info("Application {} ({}) is {}", event.getApplication().getName(),
                     event.getApplication().getId(), ((ClientApplicationStatusChangedEvent) event).getTo().getStatus());
-            String text = String.format("application:%s server_id:%s status_changed:%s,time:%s"
-                    , event.getApplication().getName()
-                    , event.getApplication().getId()
-                    , ((ClientApplicationStatusChangedEvent) event).getTo().getStatus()
-                    , DateUtil.dateTimeFormat(new Date(event.getTimestamp())));
+
 
             //开启短信通知
             if (monitorMobilePropertiesConfig.getMobile().getEnabled()) {
+                String text = String.format("%s,%s"
+                        , event.getApplication().getId()
+                        , ((ClientApplicationStatusChangedEvent) event).getTo().getStatus());
+
                 smsNotify(
                         monitorMobilePropertiesConfig.getMobile().getSign(),
                         monitorMobilePropertiesConfig.getMobile().getTemplateCode(),
@@ -56,6 +56,12 @@ public class StatusChangeNotifier extends AbstractStatusChangeNotifier {
 
             //开启钉钉通知,由于当前服务为监控服务,必须配置对应的信息接受人,否则不发送钉钉通知
             if (monitorMobilePropertiesConfig.getDingtalk().getEnabled() && CollectionUtil.isNotBlank(monitorMobilePropertiesConfig.getDingtalk().getUserIds())) {
+                String text = String.format("application:%s server_id:%s status_changed:%s,time:%s"
+                        , event.getApplication().getName()
+                        , event.getApplication().getId()
+                        , ((ClientApplicationStatusChangedEvent) event).getTo().getStatus()
+                        , DateUtil.dateTimeFormat(new Date(event.getTimestamp())));
+
                 dingTalkNotify(monitorMobilePropertiesConfig.getDingtalk().getAgentId(),monitorMobilePropertiesConfig.getDingtalk().getUserIds(),text);
             }
         } else {
