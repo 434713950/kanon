@@ -25,12 +25,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!--redis集成-->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-redis</artifactId>
-        </dependency>
-
         <!--spring缓存注解-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -38,12 +32,11 @@
             <scope>provided</scope>
         </dependency>
 
-        <!--使用redis时使用spring-session,预留做分布式处理-->
         <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-data-redis</artifactId>
+            <groupId>com.github</groupId>
+            <artifactId>kanon-autoconfiguration-redis</artifactId>
+            <version>${kanon.version}</version>
         </dependency>
-
         <!--swagger2-->
         <dependency>
             <groupId>io.springfox</groupId>
@@ -69,8 +62,8 @@
 
         <dependency>
             <groupId>com.github</groupId>
-            <artifactId>PCUtil</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>aviation-tool</artifactId>
+            <version>1.1.0.DEV1</version>
         </dependency>
 
         <!--消息总线-->

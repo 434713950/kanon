@@ -1,14 +1,14 @@
 package com.github.kanon.upms.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.github.kanon.common.base.controller.BaseController;
+import com.github.kanon.common.base.controller.IKanonController;
 import com.github.kanon.common.base.model.vo.Pagination;
 import com.github.kanon.common.base.model.vo.ResponseParam;
 import com.github.kanon.upms.model.dto.SysZuulRouteDto;
 import com.github.kanon.upms.model.dto.SysZuulRouteQuery;
 import com.github.kanon.upms.model.pojo.SysZuulRoute;
 import com.github.kanon.upms.service.SysZuulRouteService;
-import com.github.pcutil.common.CollectionUtil;
+import com.github.tool.common.CollectionUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -28,7 +28,7 @@ import java.util.List;
 @RestController
 @RequestMapping("zuulRoute")
 @Api(description = "系统路由",tags = "系统路由")
-public class SysZuulRouteController extends BaseController {
+public class SysZuulRouteController implements IKanonController {
 
     @Autowired
     private SysZuulRouteService sysZuulRouteService;
@@ -37,7 +37,7 @@ public class SysZuulRouteController extends BaseController {
     @ApiImplicitParam(name = "sysZuulRouteQuery", required = true, dataType = "SysZuulRouteQuery")
     @PostMapping("query")
     public ResponseParam<List<SysZuulRoute>> query(@RequestBody SysZuulRouteQuery sysZuulRouteQuery){
-        Page<SysZuulRoute> page = sysZuulRouteService.query(sysZuulRouteQuery);
+        Page<SysZuulRoute> page = sysZuulRouteService.queryByPage(sysZuulRouteQuery);
         return ResponseParam.success(
                 page.getRecords(),
                 new Pagination(page.getTotal(),page.getCurrent(),page.getSize()));
@@ -53,37 +53,38 @@ public class SysZuulRouteController extends BaseController {
     @ApiOperation(value="新增",tags="系统路由")
     @ApiImplicitParam(name = "sysZuulRouteDto", required = true, dataType = "SysZuulRouteDto")
     @PostMapping("add")
-    public ResponseParam<Boolean> add(@Validated @RequestBody SysZuulRouteDto sysZuulRouteDto){
+    public ResponseParam add(@Validated @RequestBody SysZuulRouteDto sysZuulRouteDto){
         if (sysZuulRouteService.save(sysZuulRouteDto)){
             sysZuulRouteService.applyZuulRoute();
         }
-        return getSuccessAddResult();
+        return ResponseParam.success();
     }
 
     @ApiOperation(value="修改",tags="系统路由")
     @ApiImplicitParam(name = "sysZuulRouteDto", required = true, dataType = "SysZuulRouteDto")
     @PostMapping("modify")
-    public ResponseParam<Boolean> modify(@Validated @RequestBody SysZuulRouteDto sysZuulRouteDto){
+    public ResponseParam modify(@Validated @RequestBody SysZuulRouteDto sysZuulRouteDto){
         if (sysZuulRouteService.modify(sysZuulRouteDto)){
             sysZuulRouteService.applyZuulRoute();
         }
-        return getSuccessUpdateResult();
+        return ResponseParam.success();
     }
 
     @ApiOperation(value="批量删除",tags="系统路由")
     @PostMapping("delete")
-    public ResponseParam<Boolean> delete(@RequestParam("ids") @RequestBody List<Long> ids){
+    public ResponseParam delete(@RequestParam("ids") @RequestBody List<Long> ids){
         if (CollectionUtil.isNotBlank(ids)) {
             if (sysZuulRouteService.deleteBatchIds(ids)){
                 sysZuulRouteService.applyZuulRoute();
             }
         }
-        return getSuccessDeleteResult();
+        return ResponseParam.success();
     }
 
     @ApiOperation(value="应用路由配置(刷新配置)",tags="系统路由")
     @GetMapping("apply")
-    public ResponseParam<Boolean> apply(){
-        return ResponseParam.success(sysZuulRouteService.applyZuulRoute());
+    public ResponseParam apply(){
+        sysZuulRouteService.applyZuulRoute();
+        return ResponseParam.success();
     }
 }

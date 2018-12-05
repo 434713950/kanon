@@ -3,7 +3,7 @@ package com.github.kanon.gateway.service.impl;
 import com.github.kanon.common.base.model.entity.Auth;
 import com.github.kanon.gateway.feign.MenuService;
 import com.github.kanon.gateway.service.PermissionService;
-import com.github.pcutil.common.CollectionUtil;
+import com.github.tool.common.CollectionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

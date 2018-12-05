@@ -7,7 +7,7 @@ import com.github.kanon.logger.mapper.SysLogMapper;
 import com.github.kanon.logger.model.dto.SysLogQuery;
 import com.github.kanon.logger.model.pojo.SysLog;
 import com.github.kanon.logger.service.SysLogService;
-import com.github.pcutil.common.CollectionUtil;
+import com.github.tool.common.CollectionUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

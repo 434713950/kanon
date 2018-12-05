@@ -13,11 +13,11 @@ import com.github.kanon.upms.model.dto.SysZuulRouteQuery;
 import com.github.kanon.upms.model.pojo.SysZuulRoute;
 import com.github.kanon.upms.service.SysZuulRouteService;
 import com.github.kanon.upms.vaildation.SysZuulRouteValidation;
-import com.github.pcutil.common.CollectionUtil;
+import com.github.tool.common.CollectionUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,12 +35,10 @@ import java.util.Set;
 @Service
 public class SysZuulRouteServiceImpl extends MyBatisPlusServiceImpl<SysZuulRouteMapper,SysZuulRoute> implements SysZuulRouteService {
 
-    @Autowired
-    private RedisTemplate redisTemplate;
-
     @Override
     @Transactional(readOnly = true,rollbackFor = Exception.class)
-    public Boolean applyZuulRoute(){
+    @Cacheable(value = "kanon",key = "'"+ZuulConstants.CACHE_ROUTE_KEY_SUFFIX+"'")
+    public List<ZuulRoute> applyZuulRoute(){
         List<ZuulRoute> zuulRoutes = new ArrayList<>();
         List<SysZuulRoute> enableSysZuulRoutes = findAllEnableSysZuulRoute();
         if (CollectionUtil.isNotBlank(enableSysZuulRoutes)){
@@ -59,10 +57,13 @@ public class SysZuulRouteServiceImpl extends MyBatisPlusServiceImpl<SysZuulRoute
                 }
                 zuulRoutes.add(zuulRoute);
             });
-            redisTemplate.opsForValue().set(ZuulConstants.CACHE_ROUTE_KEY_SUFFIX,zuulRoutes);
         }
-        return true;
+        return zuulRoutes;
     }
+
+    @Override
+    @CacheEvict(value="kanon",key="'ZuulConstants.CACHE_ROUTE_KEY_SUFFIX'")
+    public void clearZuulRouteCache(){}
 
 
     @Override
@@ -84,7 +85,7 @@ public class SysZuulRouteServiceImpl extends MyBatisPlusServiceImpl<SysZuulRoute
 
     @Override
     @Transactional(readOnly = true,rollbackFor = Exception.class)
-    public Page<SysZuulRoute> query(SysZuulRouteQuery sysZuulRouteQuery) {
+    public Page<SysZuulRoute> queryByPage(SysZuulRouteQuery sysZuulRouteQuery) {
         EntityWrapper entityWrapper = new EntityWrapper();
         entityWrapper.eq(CommonConstant.DEL_FLAG,false);
         if (sysZuulRouteQuery.getRequirePage()){

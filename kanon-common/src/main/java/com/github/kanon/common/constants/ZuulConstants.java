@@ -10,5 +10,5 @@ public interface ZuulConstants {
     /**
      * 路由缓存key后缀
      */
-    String CACHE_ROUTE_KEY_SUFFIX = "_rout_key";
+    String CACHE_ROUTE_KEY_SUFFIX = "zuul_route";
 }

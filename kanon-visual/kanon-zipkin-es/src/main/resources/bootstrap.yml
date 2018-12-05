@@ -7,7 +7,7 @@ spring:
     config:
       fail-fast: true
       discovery:
-        service-id: kanon-config-server
+        service-id: kanon-config
         enabled: true
       profile: ${spring.profiles.active}
       label: ${spring.profiles.active}
@@ -26,7 +26,7 @@ eureka:
     user:
       name: air
       password: clannad
-    ip: 10.2.21.59
+    ip: 127.0.0.1
     host: 1025
     name: eureka
   instance:

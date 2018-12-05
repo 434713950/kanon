@@ -20,6 +20,7 @@ public class CacheInitRunner implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
+        //路由信息刷入缓存
         sysZuulRouteService.applyZuulRoute();
     }
 }

@@ -7,7 +7,7 @@ spring:
     config:
       fail-fast: true
       discovery:
-        service-id: kanon-config-server
+        service-id: kanon-config
         enabled: true
       profile: ${spring.profiles.active}
       label: ${spring.profiles.active}

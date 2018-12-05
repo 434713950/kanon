@@ -1,6 +1,7 @@
 package com.github.kanon.upms.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.github.kanon.common.base.model.entity.ZuulRoute;
 import com.github.kanon.datasource.mybatis.service.MyBatisPlusService;
 import com.github.kanon.upms.model.dto.SysZuulRouteDto;
 import com.github.kanon.upms.model.dto.SysZuulRouteQuery;
@@ -21,7 +22,13 @@ public interface SysZuulRouteService extends MyBatisPlusService<SysZuulRoute> {
      * 应用路由
      * @return
      */
-    Boolean applyZuulRoute();
+    List<ZuulRoute> applyZuulRoute();
+
+
+    /**
+     * 清除路由缓存
+     */
+    void clearZuulRouteCache();
 
     /**
      * 查询所有的系统路由信息
@@ -40,7 +47,7 @@ public interface SysZuulRouteService extends MyBatisPlusService<SysZuulRoute> {
      * @param sysZuulRouteQuery 查询条件
      * @return
      */
-    Page<SysZuulRoute> query(SysZuulRouteQuery sysZuulRouteQuery);
+    Page<SysZuulRoute> queryByPage(SysZuulRouteQuery sysZuulRouteQuery);
 
     /**
      * 获取单个信息

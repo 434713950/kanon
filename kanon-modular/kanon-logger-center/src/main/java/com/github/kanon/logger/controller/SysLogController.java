@@ -1,7 +1,7 @@
 package com.github.kanon.logger.controller;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.github.kanon.common.base.controller.BaseController;
+import com.github.kanon.common.base.controller.IKanonController;
 import com.github.kanon.common.base.model.vo.Pagination;
 import com.github.kanon.common.base.model.vo.ResponseParam;
 import com.github.kanon.logger.model.dto.SysLogQuery;
@@ -23,7 +23,7 @@ import java.util.List;
 @Api(description = "系统日志", tags = "系统日志")
 @RestController
 @RequestMapping("/log")
-public class SysLogController extends BaseController {
+public class SysLogController implements IKanonController {
 
     @Autowired
     private SysLogService sysLogService;
@@ -41,6 +41,6 @@ public class SysLogController extends BaseController {
     @PostMapping(value = "/delete")
     public ResponseParam delete(@RequestParam("ids") @RequestBody List<Long> ids){
         sysLogService.deleteSysLog(ids);
-        return getSuccessDeleteResult();
+        return ResponseParam.success();
     }
 }

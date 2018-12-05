@@ -13,6 +13,8 @@
     <packaging>pom</packaging>
     <modules>
         <module>kanon-autoconfiguration-datasource-mybatis</module>
+        <module>kanon-autoconfiguration-redis</module>
     </modules>
+
 
 </project>

@@ -2,7 +2,7 @@ package com.github.kanon.logger.model.dto;
 
 import com.alibaba.fastjson.annotation.JSONField;
 import com.github.kanon.common.base.model.dto.PageQuery;
-import com.github.pcutil.common.DateUtil;
+import com.github.tool.common.DateUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

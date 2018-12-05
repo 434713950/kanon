@@ -20,8 +20,6 @@ public class PageQuery extends BaseDto {
     @ApiModelProperty(value = "是否需要分页(默认需要分页)")
     private Boolean requirePage = true;
 
-//    private Integer limitPage;
-
     /**
      * 该方式用于获取sql中额limit参数
      * @return

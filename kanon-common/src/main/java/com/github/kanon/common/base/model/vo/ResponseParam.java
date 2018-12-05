@@ -40,6 +40,14 @@ public class ResponseParam<T> {
 
 	/**
 	 * 返回成功信息
+	 * @return			ResponseParam<K>
+	 */
+	public static ResponseParam success() {
+		return new ResponseParam(MessageConstants.OPTION_SUCCESS_CODE, MessageConstants.OPTION_SUCCESS_MSG, null,null);
+	}
+
+	/**
+	 * 返回成功信息
 	 * @param data		要携带的参数
 	 * @param <K>		携带的参数类型
 	 * @return			ResponseParam<K>

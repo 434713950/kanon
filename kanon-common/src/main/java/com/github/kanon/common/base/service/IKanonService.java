@@ -6,5 +6,5 @@ package com.github.kanon.common.base.service;
  * @author PengCheng
  * @date 15:28 2018/4/10/010
  */
-public interface BaseService{
+public interface IKanonService{
 }

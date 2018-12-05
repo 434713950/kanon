@@ -1,32 +1,20 @@
-package com.github.kanon.upms.model.pojo;
+package com.github.kanon.upms.model.vo;
 
 import com.alibaba.fastjson.annotation.JSONField;
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.FieldFill;
+import com.github.kanon.common.base.model.vo.BaseVo;
 import com.github.tool.common.DateUtil;
-import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import java.io.Serializable;
 import java.util.Date;
 
 /**
- * <p>系统路由</p>
+ * <p></p>
  *
  * @author PengCheng
- * @date 2018/11/8
+ * @date 2018/12/5
  */
-@Data
-@TableName("sys_zuul_route")
-public class SysZuulRoute extends Model<SysZuulRoute> {
+public class SysZuulRouteVo extends BaseVo {
 
-    /**
-     * router Id
-     */
-    @TableId
     private Long id;
 
     /**
@@ -67,7 +55,6 @@ public class SysZuulRoute extends Model<SysZuulRoute> {
     /**
      * 创建时间
      */
-    @TableField(value = "create_time",fill = FieldFill.INSERT)
     @DateTimeFormat(pattern = DateUtil.DATE_TIME_FORMAT)
     @JSONField(format = DateUtil.DATE_TIME_FORMAT)
     private Date createTime;
@@ -75,7 +62,6 @@ public class SysZuulRoute extends Model<SysZuulRoute> {
     /**
      * 更新时间
      */
-    @TableField(value = "update_time",fill = FieldFill.INSERT_UPDATE)
     @DateTimeFormat(pattern = DateUtil.DATE_TIME_FORMAT)
     @JSONField(format = DateUtil.DATE_TIME_FORMAT)
     private Date updateTime;
@@ -84,9 +70,4 @@ public class SysZuulRoute extends Model<SysZuulRoute> {
      * 删除标签
      */
     private Boolean delFlag;
-
-    @Override
-    protected Serializable pkVal() {
-        return this.id;
-    }
 }

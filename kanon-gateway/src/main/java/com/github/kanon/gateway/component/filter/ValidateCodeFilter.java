@@ -6,7 +6,7 @@ import com.github.kanon.common.base.model.vo.ResponseParam;
 import com.github.kanon.common.constants.KanonSecurityConstants;
 import com.github.kanon.common.exceptions.ErrorMsgException;
 import com.github.kanon.common.utils.system.AuthUtils;
-import com.github.pcutil.common.CollectionUtil;
+import com.github.tool.common.CollectionUtil;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
 import lombok.extern.slf4j.Slf4j;
