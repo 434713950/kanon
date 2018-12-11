@@ -1,6 +1,5 @@
 package com.github.kanon.upms.model.pojo;
 
-
 import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.activerecord.Model;
 import com.baomidou.mybatisplus.annotations.TableField;
@@ -70,6 +69,6 @@ public class SysMenu extends Model<SysMenu> {
 
     @Override
     protected Serializable pkVal() {
-        return null;
+        return this.id;
     }
 }

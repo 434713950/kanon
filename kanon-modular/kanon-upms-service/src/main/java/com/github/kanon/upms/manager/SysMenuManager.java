@@ -67,6 +67,7 @@ public class SysMenuManager {
                 .id(sysMenu.getId())
                 .menuIcon(sysMenu.getMenuIcon())
                 .menuUrl(sysMenu.getMenuUrl())
+                .menuName(sysMenu.getMenuName())
                 .createTime(sysMenu.getCreateTime())
                 .updateTime(sysMenu.getUpdateTime()).build();
         //处理国际化名称

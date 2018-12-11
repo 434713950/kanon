@@ -13,4 +13,7 @@
  * 该服务依赖了[aviation-tool工具包](https://github.com/434713950/aviation-tool.git),请先向您的maven仓库安装该工具包
  * 服务启动顺序:kanon-eureka -> kanon-config ->kanon-auth->kanon-gateway->kanon-visual下的各服务
 ---
+### 权限控制体系图
+<img src="src/images/auth.jpg" width=100% height="500">
+
 *该服务框架参考开源项目pig进行开发
