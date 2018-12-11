@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * @Author: PengCheng
- * @Description:
+ * @Description: 该方法可用于容器加载阶段获取bean
  * @Date: 2018/6/27
  */
 @Component

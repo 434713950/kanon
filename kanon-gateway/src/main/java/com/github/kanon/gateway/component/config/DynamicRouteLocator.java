@@ -1,10 +1,11 @@
 package com.github.kanon.gateway.component.config;
 
 import com.github.kanon.common.base.model.entity.ZuulRoute;
-import com.github.kanon.common.constants.ZuulConstants;
+import com.github.kanon.common.constants.CacheConstants;
 import com.github.tool.common.CollectionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
@@ -70,9 +71,8 @@ public class DynamicRouteLocator extends DiscoveryClientRouteLocator {
     private Map<String, ZuulProperties.ZuulRoute> locateRoutesFromCache() {
         Map<String, ZuulProperties.ZuulRoute> routes = new LinkedHashMap<>();
 
-        Object obj = redisTemplate.opsForValue().get(ZuulConstants.CACHE_ROUTE_KEY_SUFFIX);
-        if (obj != null) {
-            List<ZuulRoute> results = (List<ZuulRoute>) obj;
+        List<ZuulRoute> results = getSystemZuulRoutes();
+        if (CollectionUtil.isNotBlank(results)) {
             for (ZuulRoute zuulRoute : results) {
                 if (StringUtils.isEmpty(zuulRoute.getPath()) && StringUtils.isEmpty(zuulRoute.getUrl())) {
                     continue;
@@ -92,5 +92,14 @@ public class DynamicRouteLocator extends DiscoveryClientRouteLocator {
             }
         }
         return routes;
+    }
+
+    /**
+     * 从缓存中获取路由信息
+     * @return
+     */
+    @Cacheable(value = CacheConstants.KANON_CACHE_GROUP,key = "'"+ CacheConstants.CACHE_ROUTE_KEY_SUFFIX+"'")
+    public List<ZuulRoute> getSystemZuulRoutes(){
+        return null;
     }
 }

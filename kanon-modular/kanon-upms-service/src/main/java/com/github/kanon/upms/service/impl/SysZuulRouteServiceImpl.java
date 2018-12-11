@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.github.kanon.common.base.model.entity.ZuulRoute;
 import com.github.kanon.common.constants.CommonConstant;
-import com.github.kanon.common.constants.ZuulConstants;
+import com.github.kanon.common.constants.CacheConstants;
 import com.github.kanon.common.exceptions.ErrorMsgException;
 import com.github.kanon.datasource.mybatis.service.MyBatisPlusServiceImpl;
 import com.github.kanon.upms.mapper.SysZuulRouteMapper;
@@ -17,7 +17,7 @@ import com.github.tool.common.CollectionUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +37,7 @@ public class SysZuulRouteServiceImpl extends MyBatisPlusServiceImpl<SysZuulRoute
 
     @Override
     @Transactional(readOnly = true,rollbackFor = Exception.class)
-    @Cacheable(value = "kanon",key = "'"+ZuulConstants.CACHE_ROUTE_KEY_SUFFIX+"'")
+    @CachePut(value = CacheConstants.KANON_CACHE_GROUP,key = "'"+ CacheConstants.CACHE_ROUTE_KEY_SUFFIX+"'")
     public List<ZuulRoute> applyZuulRoute(){
         List<ZuulRoute> zuulRoutes = new ArrayList<>();
         List<SysZuulRoute> enableSysZuulRoutes = findAllEnableSysZuulRoute();
@@ -62,7 +62,7 @@ public class SysZuulRouteServiceImpl extends MyBatisPlusServiceImpl<SysZuulRoute
     }
 
     @Override
-    @CacheEvict(value="kanon",key="'ZuulConstants.CACHE_ROUTE_KEY_SUFFIX'")
+    @CacheEvict(value=CacheConstants.KANON_CACHE_GROUP,key="'"+ CacheConstants.CACHE_ROUTE_KEY_SUFFIX+"'")
     public void clearZuulRouteCache(){}
 
 
@@ -106,18 +106,22 @@ public class SysZuulRouteServiceImpl extends MyBatisPlusServiceImpl<SysZuulRoute
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean save(SysZuulRouteDto sysZuulRouteDto) {
+    public SysZuulRoute save(SysZuulRouteDto sysZuulRouteDto) {
         SysZuulRoute sysZuulRoute = new SysZuulRoute();
         BeanUtils.copyProperties(sysZuulRouteDto,sysZuulRoute,"id");
         if (CollectionUtil.isNotBlank(sysZuulRouteDto.getSensitiveheaderList())) {
             sysZuulRoute.setSensitiveheadersList(CollectionUtil.join(sysZuulRouteDto.getSensitiveheaderList(), ","));
         }
-        return insert(sysZuulRoute);
+        if (insert(sysZuulRoute)){
+            applyZuulRoute();
+            return sysZuulRoute;
+        }
+        return null;
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Boolean modify(SysZuulRouteDto sysZuulRouteDto) {
+    public SysZuulRoute modify(SysZuulRouteDto sysZuulRouteDto) {
         if (sysZuulRouteDto.getId()==null){
             throw new ErrorMsgException(SysZuulRouteValidation.SYS_ZUUL_ROUTE_NOT_SELECT);
         }
@@ -131,7 +135,29 @@ public class SysZuulRouteServiceImpl extends MyBatisPlusServiceImpl<SysZuulRoute
         }else {
             source.setSensitiveheadersList(null);
         }
-        return updateById(source);
+        if (updateById(source)){
+            applyZuulRoute();
+            return source;
+        }
+        return null;
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void remove(Long id) {
+        if (deleteById(id)){
+            applyZuulRoute();
+        }
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void removeBatch(List<Long> ids) {
+        if (CollectionUtil.isNotBlank(ids)) {
+            if (deleteBatchIds(ids)){
+                applyZuulRoute();
+            }
+        }
     }
 
 

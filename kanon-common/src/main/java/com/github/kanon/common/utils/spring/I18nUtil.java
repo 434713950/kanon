@@ -12,13 +12,10 @@ import org.springframework.stereotype.Component;
  * @Description:    国际化工具
  * @Date: 2018/5/20
  */
-@Component
 public class I18nUtil {
 
-    @Autowired
-    private MessageSource messageSource;
-
-    public String i18nHandler(String i18nMsg,String ... text){
+    public static String i18nParser(String i18nMsg,String ... text){
+        MessageSource messageSource = getMessageSource();
         String msg;
         try {
             if (messageSource == null){
@@ -35,5 +32,10 @@ public class I18nUtil {
             }
         }
         return msg;
+    }
+
+
+    public static MessageSource getMessageSource(){
+        return SpringContextUtil.getBean(MessageSource.class);
     }
 }

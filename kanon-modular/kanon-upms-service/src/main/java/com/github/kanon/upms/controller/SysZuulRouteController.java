@@ -8,7 +8,6 @@ import com.github.kanon.upms.model.dto.SysZuulRouteDto;
 import com.github.kanon.upms.model.dto.SysZuulRouteQuery;
 import com.github.kanon.upms.model.pojo.SysZuulRoute;
 import com.github.kanon.upms.service.SysZuulRouteService;
-import com.github.tool.common.CollectionUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -54,9 +53,7 @@ public class SysZuulRouteController implements IKanonController {
     @ApiImplicitParam(name = "sysZuulRouteDto", required = true, dataType = "SysZuulRouteDto")
     @PostMapping("add")
     public ResponseParam add(@Validated @RequestBody SysZuulRouteDto sysZuulRouteDto){
-        if (sysZuulRouteService.save(sysZuulRouteDto)){
-            sysZuulRouteService.applyZuulRoute();
-        }
+        sysZuulRouteService.save(sysZuulRouteDto);
         return ResponseParam.success();
     }
 
@@ -64,20 +61,21 @@ public class SysZuulRouteController implements IKanonController {
     @ApiImplicitParam(name = "sysZuulRouteDto", required = true, dataType = "SysZuulRouteDto")
     @PostMapping("modify")
     public ResponseParam modify(@Validated @RequestBody SysZuulRouteDto sysZuulRouteDto){
-        if (sysZuulRouteService.modify(sysZuulRouteDto)){
-            sysZuulRouteService.applyZuulRoute();
-        }
+        sysZuulRouteService.modify(sysZuulRouteDto);
         return ResponseParam.success();
     }
 
     @ApiOperation(value="批量删除",tags="系统路由")
     @PostMapping("delete")
-    public ResponseParam delete(@RequestParam("ids") @RequestBody List<Long> ids){
-        if (CollectionUtil.isNotBlank(ids)) {
-            if (sysZuulRouteService.deleteBatchIds(ids)){
-                sysZuulRouteService.applyZuulRoute();
-            }
-        }
+    public ResponseParam delete(@RequestParam("id") @RequestBody Long id){
+        sysZuulRouteService.remove(id);
+        return ResponseParam.success();
+    }
+
+    @ApiOperation(value="批量删除",tags="系统路由")
+    @PostMapping("deleteBatch")
+    public ResponseParam deleteBatch(@RequestParam("ids") @RequestBody List<Long> ids){
+        sysZuulRouteService.removeBatch(ids);
         return ResponseParam.success();
     }
 

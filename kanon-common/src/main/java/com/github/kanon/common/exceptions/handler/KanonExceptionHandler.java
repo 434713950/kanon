@@ -27,12 +27,9 @@ import java.util.List;
 @ResponseBody
 public class KanonExceptionHandler {
 
-    @Autowired
-    private I18nUtil i18nUtil;
-
     @ExceptionHandler(ErrorMsgException.class)
     public ResponseParam handleErrorMsgException(ErrorMsgException e){
-        String msg = i18nUtil.i18nHandler(e.getMsg(),e.getText());
+        String msg = I18nUtil.i18nParser(e.getMsg(),e.getText());
         if (e.getIsRefresh()){
             return new ResponseParam(MessageConstants.OPTION_FAILED_REFRESH_CODE,msg);
         }else {
@@ -42,17 +39,17 @@ public class KanonExceptionHandler {
 
     @ExceptionHandler(LoginNotException.class)
     public ResponseParam handleLoginNotException(LoginNotException e){
-        return new ResponseParam(MessageConstants.OPTION_NOT_LOGIN_CODE,i18nUtil.i18nHandler(MessageConstants.OPTION_LOGIN_NOT_MSG));
+        return new ResponseParam(MessageConstants.OPTION_NOT_LOGIN_CODE,I18nUtil.i18nParser(MessageConstants.OPTION_LOGIN_NOT_MSG));
     }
 
     @ExceptionHandler(InitialPasswordException.class)
     public ResponseParam handleInitialPasswordException(InitialPasswordException e){
-        return new ResponseParam(MessageConstants.OPTION_INITIAL_PASSWORD_CODE,i18nUtil.i18nHandler(MessageConstants.OPTION_INITIAL_PASSWORD_FIRST));
+        return new ResponseParam(MessageConstants.OPTION_INITIAL_PASSWORD_CODE,I18nUtil.i18nParser(MessageConstants.OPTION_INITIAL_PASSWORD_FIRST));
     }
 
     @ExceptionHandler(AuthorityException.class)
     public ResponseParam handleAuthorityException(AuthorityException e){
-        return new ResponseParam(MessageConstants.OPTION_NOT_AUTHORITY_CODE,i18nUtil.i18nHandler(MessageConstants.OPTION_NOT_AUTHORITY_MSG));
+        return new ResponseParam(MessageConstants.OPTION_NOT_AUTHORITY_CODE,I18nUtil.i18nParser(MessageConstants.OPTION_NOT_AUTHORITY_MSG));
     }
 
     /**

@@ -61,12 +61,24 @@ public interface SysZuulRouteService extends MyBatisPlusService<SysZuulRoute> {
      * @param sysZuulRouteDto   保存数据
      * @return
      */
-    Boolean save(SysZuulRouteDto sysZuulRouteDto);
+    SysZuulRoute save(SysZuulRouteDto sysZuulRouteDto);
 
     /**
      * 修改
      * @param sysZuulRouteDto   保存数据
      * @return
      */
-    Boolean modify(SysZuulRouteDto sysZuulRouteDto);
+    SysZuulRoute modify(SysZuulRouteDto sysZuulRouteDto);
+
+    /**
+     * 批量移除
+     * @param id  路由id
+     */
+    void remove(Long id);
+
+    /**
+     * 批量移除
+     * @param ids   路由id
+     */
+    void removeBatch(List<Long> ids);
 }
