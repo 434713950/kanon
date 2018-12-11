@@ -7,7 +7,7 @@
 >* kanon-visual&nbsp;&nbsp;可视化监控服务
 >>* kanon-monitor&nbsp;&nbsp;集群监控服务
 >>* kanon-zipkin-db&nbsp;&nbsp;服务追踪,数据入数据库
->>* kanon-zipkib-zipkin-elk&nbsp;&nbsp;服务追踪,数据入es
+>>* kanon-zipkib-zipkin-es&nbsp;&nbsp;服务追踪,数据入es
 ---
  ### 启动方式:
  * 该服务依赖了[aviation-tool工具包](https://github.com/434713950/aviation-tool.git),请先向您的maven仓库安装该工具包
