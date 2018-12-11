@@ -10,7 +10,7 @@
 >>* kanon-zipkib-zipkin-elk&nbsp;&nbsp;服务追踪,数据入es
 ---
  ### 启动方式:
- * 该服务依赖了[PCUtil工具包](https://github.com/434713950/PCUtil.git),请先向您的maven仓库安装该工具包
+ * 该服务依赖了[aviation-tool工具包](https://github.com/434713950/aviation-tool.git),请先向您的maven仓库安装该工具包
  * 服务启动顺序:kanon-eureka -> kanon-config ->kanon-auth->kanon-gateway->kanon-visual下的各服务
 ---
 *该服务框架参考开源项目pig进行开发
