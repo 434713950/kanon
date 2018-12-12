@@ -48,7 +48,7 @@ public class KanonExceptionHandler {
 
     @ExceptionHandler(AuthorityException.class)
     public ResponseParam handleAuthorityException(AuthorityException e){
-        return new ResponseParam(ResultMsgEnum.PREMISSION_DENIED);
+        return new ResponseParam(ResultMsgEnum.PERMISSION_DENIED);
     }
 
     /**
