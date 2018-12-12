@@ -1,0 +1,83 @@
+spring:
+  application:
+    name: kanon-route-server
+  profiles:
+    active: dev
+  cloud:
+    config:
+      fail-fast: true
+      discovery:
+        service-id: kanon-config
+        enabled: true
+      profile: ${spring.profiles.active}
+      label: ${spring.profiles.active}
+  datasource:
+    schema: classpath:schema.sql
+
+management:
+  context_path: /route
+
+logging:
+  level: info
+
+security:
+  basic:
+    enabled: false
+
+
+---
+spring:
+  profiles: dev
+eureka:
+  server:
+    user:
+      name: air
+      password: clannad
+    ip: 127.0.0.1
+    host: 1025
+    name: eureka
+  instance:
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 5
+    lease-expiration-duration-in-seconds: 20
+    #指定ip(eureka内网其它ip的情况下,必须指定当前服务的ip，否则默认本地局域网)
+    ip-address: 10.2.21.228
+    instance-id: ${spring.application.name}_${eureka.instance.ip-address}:${server.port}
+    #指定健康监控的相关路径(management.context_path配置的情况下必须设置)
+    health-check-url: http://${eureka.instance.ip-address}:${server.port}${management.context_path}/health
+    status-page-url: http://${eureka.instance.ip-address}:${server.port}${management.context_path}/info
+    home-page-url: http://${eureka.instance.ip-address}:${server.port}${management.context_path}
+    metadata-map:
+      management:
+        context-path: ${management.context_path}
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.server.user.name}:${eureka.server.user.password}@${eureka.server.ip}:${eureka.server.host}/${eureka.server.name}
+    registry-fetch-interval-seconds: 10
+
+---
+spring:
+  profiles: prd
+eureka:
+  server:
+    user:
+      name: air
+      password: clannad
+    ip: 127.0.0.1
+    host: 1025
+    name: eureka
+  instance:
+    prefer-ip-address: true
+    #指定ip(eureka内网其它ip的情况下,必须指定当前服务的ip，否则默认本地局域网)
+    ip-address: 10.2.21.228
+    instance-id: ${spring.application.name}_${eureka.instance.ip-address}:${server.port}
+    #指定健康监控的相关路径(management.context_path配置的情况下必须设置)
+    health-check-url: http://${eureka.instance.ip-address}:${server.port}${management.context_path}/health
+    status-page-url: http://${eureka.instance.ip-address}:${server.port}${management.context_path}/info
+    home-page-url: http://${eureka.instance.ip-address}:${server.port}${management.context_path}
+    metadata-map:
+      management:
+        context-path: ${management.context_path}
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.server.user.name}:${eureka.server.user.password}@${eureka.server.ip}:${eureka.server.host}/${eureka.server.name}
