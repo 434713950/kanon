@@ -8,7 +8,7 @@ import lombok.Setter;
  * @Description:    日志类别
  * @Date: 2018/9/13
  */
-public enum LogType {
+public enum LogTypeEnum {
 
     COMMON(1,"正常"),
     ABNORMAL(0,"异常");
@@ -19,7 +19,7 @@ public enum LogType {
     @Getter@Setter
     private String msg;
 
-    LogType(Integer code, String msg) {
+    LogTypeEnum(Integer code, String msg) {
         this.code = code;
         this.msg = msg;
     }

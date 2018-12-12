@@ -2,7 +2,7 @@ package com.github.kanon.auth.util;
 
 import com.github.kanon.common.base.model.vo.RoleVo;
 import com.github.kanon.common.base.model.vo.UserVo;
-import com.github.kanon.common.constants.UserStatus;
+import com.github.kanon.common.constants.UserStatusEnum;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
@@ -73,7 +73,7 @@ public class UserDetailsImpl implements UserDetails {
      */
     @Override
     public boolean isAccountNonLocked() {
-        return UserStatus.BLOCK.getStatus().equals(this.status) ? false : true;
+        return UserStatusEnum.BLOCK.getStatus().equals(this.status) ? false : true;
     }
 
     @Override
@@ -87,6 +87,6 @@ public class UserDetailsImpl implements UserDetails {
      */
     @Override
     public boolean isEnabled() {
-        return  UserStatus.COMMON.getStatus().equals(this.status) ? true : false;
+        return  UserStatusEnum.COMMON.getStatus().equals(this.status) ? true : false;
     }
 }

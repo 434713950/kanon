@@ -1,6 +1,6 @@
 package com.github.kanon.common.base.model.vo;
 
-import com.github.kanon.common.constants.MessageConstants;
+import com.github.kanon.common.constants.ResultMsgEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -27,8 +27,7 @@ public class ResponseParam<T> {
 	private Pagination pagination;
 
 	public ResponseParam(int code, String message, T result, Pagination pagination) {
-		this.code = code;
-		this.message = message;
+		this(code,message);
 		this.result = result;
 		this.pagination = pagination;
 	}
@@ -38,12 +37,22 @@ public class ResponseParam<T> {
 		this.message = message;
 	}
 
+	public ResponseParam(ResultMsgEnum resultMsgEnum) {
+		this(resultMsgEnum.getResultCode(),resultMsgEnum.getResultMsg());
+	}
+
+	public ResponseParam(ResultMsgEnum resultMsgEnum, T result, Pagination pagination) {
+		this(resultMsgEnum);
+		this.result = result;
+		this.pagination = pagination;
+	}
+
 	/**
 	 * 返回成功信息
 	 * @return			ResponseParam<K>
 	 */
 	public static ResponseParam success() {
-		return new ResponseParam(MessageConstants.OPTION_SUCCESS_CODE, MessageConstants.OPTION_SUCCESS_MSG, null,null);
+		return new ResponseParam(ResultMsgEnum.SUCCESS);
 	}
 
 	/**
@@ -53,7 +62,7 @@ public class ResponseParam<T> {
 	 * @return			ResponseParam<K>
 	 */
 	public static <K> ResponseParam<K> success(K data) {
-		return new ResponseParam<K>(MessageConstants.OPTION_SUCCESS_CODE, MessageConstants.OPTION_SUCCESS_MSG, data,null);
+		return new ResponseParam<K>(ResultMsgEnum.SUCCESS, data,null);
 	}
 
 	/**
@@ -64,7 +73,7 @@ public class ResponseParam<T> {
 	 * @return			ResponseParam<K>
 	 */
 	public static <K> ResponseParam<K> success(K data,String msg) {
-		return new ResponseParam<K>(MessageConstants.OPTION_SUCCESS_CODE, msg, data,null);
+		return new ResponseParam<K>(ResultMsgEnum.SUCCESS.getResultCode(), msg, data,null);
 	}
 
 	/**
@@ -75,8 +84,7 @@ public class ResponseParam<T> {
 	 * @return					ResponseParam<K>
 	 */
 	public static <K> ResponseParam<K> success(K data,Pagination pagination) {
-		ResponseParam<K> responseParam = new ResponseParam<K>(MessageConstants.OPTION_SUCCESS_CODE, MessageConstants.OPTION_SUCCESS_MSG, data,pagination);
-		return responseParam;
+		return new ResponseParam<K>(ResultMsgEnum.SUCCESS, data,pagination);
 	}
 
 	/**
@@ -84,6 +92,6 @@ public class ResponseParam<T> {
 	 * @return	ResponseParam
 	 */
 	public static ResponseParam systemError(){
-		return new ResponseParam(MessageConstants.SYSTEM_ERROR_CODE,MessageConstants.SYSTEM_FAILED_MSG,null,null);
+		return new ResponseParam(ResultMsgEnum.SYSTEM_ERROR,null,null);
 	}
 }

@@ -8,7 +8,7 @@ import lombok.Setter;
  * @Description:    账户状态
  * @Date: 2018/7/26
  */
-public enum UserStatus {
+public enum UserStatusEnum {
 
     COMMON(0),
     BLOCK(1),
@@ -18,7 +18,7 @@ public enum UserStatus {
     @Setter
     private Integer status;
 
-    UserStatus(Integer status) {
+    UserStatusEnum(Integer status) {
         this.status = status;
     }
 }

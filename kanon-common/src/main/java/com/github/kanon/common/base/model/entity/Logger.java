@@ -1,6 +1,6 @@
 package com.github.kanon.common.base.model.entity;
 
-import com.github.kanon.common.constants.LogType;
+import com.github.kanon.common.constants.LogTypeEnum;
 import lombok.Data;
 import lombok.experimental.Accessors;
 
@@ -20,7 +20,7 @@ public class Logger {
      *
      * 日志类型
      */
-    private LogType logType;
+    private LogTypeEnum logTypeEnum;
 
     /**
      * 日志内容

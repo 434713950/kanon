@@ -3,7 +3,7 @@ package com.github.kanon.gateway.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.github.kanon.common.base.model.entity.Logger;
 import com.github.kanon.common.constants.CommonConstant;
-import com.github.kanon.common.constants.LogType;
+import com.github.kanon.common.constants.LogTypeEnum;
 import com.github.kanon.common.constants.MqQueueConstant;
 import com.github.kanon.common.utils.net.HttpUtil;
 import com.github.kanon.common.utils.net.URLUtil;
@@ -58,7 +58,7 @@ public class LogSendServiceImpl implements LogSendService {
                 //从流中获取信息
                 String resp = IOUtils.toString(inputStream,CommonConstant.CONTENT_ENCODE);
                 //设置日志数据
-                logger.setLogType(LogType.ABNORMAL);
+                logger.setLogTypeEnum(LogTypeEnum.ABNORMAL);
                 logger.setMessage(resp);
             } catch (IOException e) {
                 log.error("response stream analysis error: ", e);
@@ -92,7 +92,7 @@ public class LogSendServiceImpl implements LogSendService {
         String method = request.getMethod();
         Long startTime = (Long) requestContext.get("startTime");
 
-        Logger logger = new Logger().setLogType(LogType.COMMON)
+        Logger logger = new Logger().setLogTypeEnum(LogTypeEnum.COMMON)
                 .setRemoteAddr(HttpUtil.getRequestIPAddress(request))
                 .setRequestUri(URLUtil.getPath(requestUri))
                 .setMethod(method)

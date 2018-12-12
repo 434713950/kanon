@@ -4,7 +4,7 @@ import com.github.kanon.auth.exception.AuthFailException;
 import com.github.kanon.auth.feign.UserService;
 import com.github.kanon.auth.util.UserDetailsImpl;
 import com.github.kanon.common.base.model.vo.UserVo;
-import com.github.kanon.common.constants.UserStatus;
+import com.github.kanon.common.constants.UserStatusEnum;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -44,10 +44,10 @@ public class CommonAuthenticationProvider implements AuthenticationProvider {
 
     private UserDetailsImpl buildUserDetails(CommonAuthModel authModel){
         UserVo userVo = userService.findUserByUsername(authModel.getAccount());
-        if (userVo == null || userVo.getStatus().equals(UserStatus.BLOCK)) {
+        if (userVo == null || userVo.getStatus().equals(UserStatusEnum.BLOCK)) {
             throw new AuthFailException("该账户不存在");
         }
-        if (userVo.getStatus().equals(UserStatus.FROZEN)) {
+        if (userVo.getStatus().equals(UserStatusEnum.FROZEN)) {
             throw new AuthFailException("该账户已被冻结");
         }
         if (!passwordEncoder.matches(authModel.getPassword(),userVo.getUserPass())) {

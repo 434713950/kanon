@@ -3,7 +3,7 @@ package com.github.kanon.gateway.component.handler;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.kanon.common.base.model.vo.ResponseParam;
 import com.github.kanon.common.constants.CommonConstant;
-import com.github.kanon.common.constants.MessageConstants;
+import com.github.kanon.common.constants.ResultMsgEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +40,7 @@ public class KanonAccessDeniedHandler extends OAuth2AccessDeniedHandler {
         log.info("authorization failed，access barred {}", request.getRequestURI());
         response.setCharacterEncoding(CommonConstant.CONTENT_ENCODE);
         response.setContentType(CommonConstant.CONTENT_TYPE);
-        ResponseParam result = new ResponseParam(MessageConstants.OPTION_NOT_LOGIN_CODE,MessageConstants.OPTION_LOGIN_NOT_MSG);
+        ResponseParam result = new ResponseParam(ResultMsgEnum.UN_LOGIN);
         response.setStatus(HttpStatus.SC_FORBIDDEN);
         PrintWriter printWriter = response.getWriter();
         printWriter.append(objectMapper.writeValueAsString(result));
