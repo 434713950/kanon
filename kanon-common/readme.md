@@ -12,7 +12,6 @@
 >> `swagger2.api.contactName` swagger2接口界面的联系人姓名  
 >> `swagger2.api.contactUrl` swagger2接口界面的联系人博客地址  
 >> `swagger2.api.contactEmail` swagger2接口界面的联系人邮件地址  
-
 >> ---
 >> * 注：spring-validation使用的国际化文件地址与springboot本身的国际化地址一致。调节`spring.messages.basename`即可
 >> ---
