@@ -1,6 +1,7 @@
 package com.github.kanon.logger.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
+import com.github.kanon.common.base.service.IKanonService;
 import com.github.kanon.datasource.mybatis.service.MyBatisPlusService;
 import com.github.kanon.logger.model.dto.SysLogQuery;
 import com.github.kanon.logger.model.pojo.SysLog;
@@ -12,7 +13,7 @@ import java.util.List;
  * @Description:
  * @Date: 2018/6/28
  */
-public interface SysLogService extends MyBatisPlusService<SysLog> {
+public interface SysLogService extends MyBatisPlusService<SysLog>, IKanonService {
 
     /**
      * 分页查询
