@@ -1,5 +1,6 @@
 package com.github.kanon.upms.service;
 
+import com.github.kanon.common.base.service.IKanonService;
 import com.github.kanon.datasource.mybatis.service.MyBatisPlusService;
 import com.github.kanon.upms.model.Tree.SysMenuTree;
 import com.github.kanon.upms.model.dto.SysMenuDto;
@@ -15,7 +16,7 @@ import java.util.List;
  * @author PengCheng
  * @date 2018/12/5
  */
-public interface SysMenuService extends MyBatisPlusService<SysMenu> {
+public interface SysMenuService extends MyBatisPlusService<SysMenu>, IKanonService {
 
     /**
      * 获取完整的折叠菜单树

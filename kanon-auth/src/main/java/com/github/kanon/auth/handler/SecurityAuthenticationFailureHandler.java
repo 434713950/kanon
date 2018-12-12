@@ -27,9 +27,6 @@ import java.net.HttpURLConnection;
 @Component
 public class SecurityAuthenticationFailureHandler implements AuthenticationFailureHandler {
 
-    @Autowired
-    private I18nUtil i18nUtil;
-
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException e) throws IOException {
         String errMsg = e.getMessage();
@@ -40,7 +37,7 @@ public class SecurityAuthenticationFailureHandler implements AuthenticationFailu
             code = HttpURLConnection.HTTP_FORBIDDEN;
         }
         if (!StringUtils.isEmpty(errMsg)){
-            errMsg = i18nUtil.i18nHandler(errMsg);
+            errMsg = I18nUtil.i18nParser(errMsg);
         }
         response.setCharacterEncoding("UTF-8");
         response.setContentType("application/json; charset=utf-8");

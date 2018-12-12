@@ -35,14 +35,14 @@ public class CommonAuthenticationProvider implements AuthenticationProvider {
         CommonAuthenticationToken authenticationToken = (CommonAuthenticationToken) authentication;
         CommonAuthModel authModel = (CommonAuthModel) authentication.getPrincipal();
 
-        UserDetailsImpl userDetails = buildUserDeatils(authModel);
+        UserDetailsImpl userDetails = buildUserDetails(authModel);
         CommonAuthenticationToken finalAuthenticationToken = new CommonAuthenticationToken(userDetails,null, userDetails.getAuthorities());
         finalAuthenticationToken.setDetails(authenticationToken.getDetails());
         return authenticationToken;
     }
 
 
-    private UserDetailsImpl buildUserDeatils(CommonAuthModel authModel){
+    private UserDetailsImpl buildUserDetails(CommonAuthModel authModel){
         UserVo userVo = userService.findUserByUsername(authModel.getAccount());
         if (userVo == null || userVo.getStatus().equals(UserStatus.BLOCK)) {
             throw new AuthFailException("该账户不存在");

@@ -12,12 +12,6 @@
     <artifactId>kanon-autoconfiguration-datasource-mybatis</artifactId>
 
     <dependencies>
-        <dependency>
-            <groupId>com.github</groupId>
-            <artifactId>kanon-common</artifactId>
-            <version>${kanon.version}</version>
-        </dependency>
-
         <!-- MySql数据库驱动 -->
         <dependency>
             <groupId>mysql</groupId>

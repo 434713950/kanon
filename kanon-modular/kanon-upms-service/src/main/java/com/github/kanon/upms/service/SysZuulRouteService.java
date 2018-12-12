@@ -2,6 +2,7 @@ package com.github.kanon.upms.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
 import com.github.kanon.common.base.model.entity.ZuulRoute;
+import com.github.kanon.common.base.service.IKanonService;
 import com.github.kanon.datasource.mybatis.service.MyBatisPlusService;
 import com.github.kanon.upms.model.dto.SysZuulRouteDto;
 import com.github.kanon.upms.model.dto.SysZuulRouteQuery;
@@ -16,7 +17,7 @@ import java.util.List;
  * @author PengCheng
  * @date 2018/11/8
  */
-public interface SysZuulRouteService extends MyBatisPlusService<SysZuulRoute> {
+public interface SysZuulRouteService extends MyBatisPlusService<SysZuulRoute>, IKanonService {
 
     /**
      * 应用路由

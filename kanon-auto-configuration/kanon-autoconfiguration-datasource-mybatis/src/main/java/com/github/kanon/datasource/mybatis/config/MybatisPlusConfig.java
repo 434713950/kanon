@@ -44,14 +44,4 @@ public class MybatisPlusConfig {
         return new LogicSqlInjector();
     }
 
-    /**
-     * 数据权限插件
-     *
-     * @return DataScopeInterceptor
-     */
-//    @Bean
-//    public DataScopeInterceptor dataScopeInterceptor() {
-//        return new DataScopeInterceptor();
-//    }
-
 }

@@ -1,6 +1,7 @@
 package com.github.kanon.common.base.config;
 
 import io.swagger.annotations.Api;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -27,6 +28,9 @@ import java.util.List;
 @EnableSwagger2
 public class Swagger2 {
 
+    @Autowired
+    public Swagger2Properties swagger2Properties;
+
     @Bean
     public Docket serviceApi() {
         return new Docket(DocumentationType.SWAGGER_2)
@@ -39,11 +43,11 @@ public class Swagger2 {
 
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
-                .title("Kanon Swagger API")
-                .description("https://github.com/434713950/kanon")
-                .termsOfServiceUrl("https://github.com/434713950/kanon")
-                .contact(new Contact("PC","https://github.com/434713950/kanon","434713950@163.com"))
-                .version("1.0")
+                .title(swagger2Properties.getTitle())
+                .description(swagger2Properties.getDescription())
+                .termsOfServiceUrl(swagger2Properties.getServiceUrl())
+                .contact(new Contact(swagger2Properties.getContactName(),swagger2Properties.getContactUrl(),swagger2Properties.getContactEmail()))
+                .version(swagger2Properties.getVersion())
                 .build();
     }
 

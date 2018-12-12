@@ -10,6 +10,6 @@ import org.springframework.security.core.AuthenticationException;
 public class BadAccessTokenException extends AuthenticationException {
 
     public BadAccessTokenException(){
-        super("坏的授权令牌");
+        super("bad auth token");
     }
 }

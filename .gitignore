@@ -24,4 +24,4 @@ nbdist/
 .nb-gradle/
 
 #### extra file ####
-logs/
+logs
