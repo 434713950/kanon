@@ -22,8 +22,6 @@ public interface KanonSecurityConstants {
      */
     String ROLE_HEADER = "x-role-header";
 
-    /**
-     * 验证码缓存key
-     */
-    String VERIFICATION_CODE_CACHE_KEY = " VERIFICATION_CODE";
+
+
 }

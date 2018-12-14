@@ -47,9 +47,8 @@ public class SysZuulRouteController implements IKanonController {
     }
 
     @ApiOperation(value="获取单个详情",tags="系统路由")
-    @ApiImplicitParam(name = "id", required = true, dataType = "Long")
-    @GetMapping("view/{id}")
-    public ResponseParam<SysZuulRoute> view(@PathVariable Long id){
+    @GetMapping("view")
+    public ResponseParam<SysZuulRoute> view(@RequestParam("id") Long id){
         return ResponseParam.success(sysZuulRouteService.getOne(id));
     }
 
@@ -69,7 +68,7 @@ public class SysZuulRouteController implements IKanonController {
         return ResponseParam.success();
     }
 
-    @ApiOperation(value="批量删除",tags="系统路由")
+    @ApiOperation(value="删除",tags="系统路由")
     @PostMapping("delete")
     public ResponseParam delete(@RequestParam("id") @RequestBody Long id){
         sysZuulRouteService.remove(id);

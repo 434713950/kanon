@@ -3,7 +3,7 @@ package com.github.kanon.gateway.component.filter;
 import com.alibaba.fastjson.JSONObject;
 import com.github.kanon.common.base.config.FilterIgnorePropertiesConfig;
 import com.github.kanon.common.base.model.vo.ResponseParam;
-import com.github.kanon.common.constants.KanonSecurityConstants;
+import com.github.kanon.common.constants.CacheConstants;
 import com.github.kanon.common.exceptions.ErrorMsgException;
 import com.github.kanon.common.utils.system.AuthUtils;
 import com.github.tool.common.CollectionUtil;
@@ -13,10 +13,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.netflix.zuul.filters.support.FilterConstants;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.core.RedisTemplate;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
@@ -33,7 +34,8 @@ import java.util.Arrays;
 public class ValidateCodeFilter extends ZuulFilter {
 
     @Autowired
-    private RedisTemplate redisTemplate;
+    private CacheManager cacheManager;
+
     @Autowired
     private FilterIgnorePropertiesConfig filterIgnorePropertiesConfig;
 
@@ -101,28 +103,32 @@ public class ValidateCodeFilter extends ZuulFilter {
             randomStr = httpServletRequest.getParameter("mobile");
         }
 
-        //从redis中抓取当前用户验证码进行验证码校验
-        String key = KanonSecurityConstants.VERIFICATION_CODE_CACHE_KEY + randomStr;
-        if (!redisTemplate.hasKey(key)) {
+        //获取缓存组
+        Cache cache = cacheManager.getCache(CacheConstants.KANON_VERIFICATION_CACHE_GROUP);
+
+        if (cache==null){
             throw new ErrorMsgException("验证码已过期，请重新获取");
         }
 
-        Object codeObj = redisTemplate.opsForValue().get(key);
-        if (codeObj == null) {
+        String verificationCacheKey = CacheConstants.VERIFICATION_CODE_CACHE_KEY_PRE+randomStr;
+
+        Cache.ValueWrapper valueWrapper = cache.get(verificationCacheKey);
+        if (valueWrapper == null){
             throw new ErrorMsgException("验证码已过期，请重新获取");
         }
 
-        String saveCode = codeObj.toString();
+        String saveCode = (String) valueWrapper.get();
+
         if (StringUtils.isBlank(saveCode)) {
-            redisTemplate.delete(key);
+            cache.evict(verificationCacheKey);
             throw new ErrorMsgException("验证码已过期，请重新获取");
         }
 
         if (!StringUtils.equals(saveCode, code)) {
-            redisTemplate.delete(key);
+            cache.evict(verificationCacheKey);
             throw new ErrorMsgException("验证码错误，请重新输入");
         }
 
-        redisTemplate.delete(key);
+        cache.evict(verificationCacheKey);
     }
 }

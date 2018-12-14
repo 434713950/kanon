@@ -22,4 +22,15 @@ public interface CacheConstants {
      */
     String SYS_MENU_TREE_CACHE = "sys_menu_tree";
 
+
+    /**
+     * 服务验证码组名
+     */
+    String KANON_VERIFICATION_CACHE_GROUP = "kanon_verification";
+
+    /**
+     * 验证码缓存key
+     */
+    String VERIFICATION_CODE_CACHE_KEY_PRE = " VERIFICATION_CODE_";
+
 }
