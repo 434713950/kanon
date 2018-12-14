@@ -4,6 +4,7 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.baomidou.mybatisplus.annotations.TableId;
 import com.baomidou.mybatisplus.enums.IdType;
 import com.github.kanon.common.base.model.vo.BaseVo;
+import com.github.kanon.upms.model.pojo.SysOperate;
 import com.github.tool.common.DateUtil;
 import com.github.tool.tree.model.TreeNode;
 import io.swagger.annotations.ApiModelProperty;
@@ -12,6 +13,7 @@ import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  * <p></p>
@@ -37,6 +39,9 @@ public class SysMenuTree extends TreeNode<SysMenuTree> {
 
     @ApiModelProperty(value = "菜单排序")
     private Integer num;
+
+    @ApiModelProperty(value = "菜单所拥有的操作权限")
+    private Set<SysOperate> operateSet;
 
     @ApiModelProperty(value = "创建时间")
     @DateTimeFormat(pattern = DateUtil.DATE_TIME_FORMAT)

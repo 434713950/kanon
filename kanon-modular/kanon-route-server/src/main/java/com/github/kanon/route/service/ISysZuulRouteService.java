@@ -17,19 +17,7 @@ import java.util.List;
  * @author PengCheng
  * @date 2018/11/8
  */
-public interface SysZuulRouteService extends MyBatisPlusService<SysZuulRoute>, IKanonService {
-
-    /**
-     * 应用路由
-     * @return
-     */
-    List<ZuulRoute> applyZuulRoute();
-
-
-    /**
-     * 清除路由缓存
-     */
-    void clearZuulRouteCache();
+public interface ISysZuulRouteService extends MyBatisPlusService<SysZuulRoute>, IKanonService {
 
     /**
      * 查询所有的系统路由信息

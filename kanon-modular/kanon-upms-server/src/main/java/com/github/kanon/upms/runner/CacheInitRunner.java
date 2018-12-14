@@ -1,5 +1,7 @@
 package com.github.kanon.upms.runner;
 
+import com.github.kanon.upms.service.SysMenuService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -13,9 +15,10 @@ import org.springframework.stereotype.Component;
 @Component
 public class CacheInitRunner implements ApplicationRunner {
 
-
+    @Autowired
+    private SysMenuService sysMenuService;
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
-
+        sysMenuService.getWholeFoldedMenuTree();
     }
 }

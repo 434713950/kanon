@@ -1,6 +1,6 @@
 package com.github.kanon.route.runner;
 
-import com.github.kanon.route.service.SysZuulRouteService;
+import com.github.kanon.route.cache.SysZuulRouteCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -16,11 +16,11 @@ import org.springframework.stereotype.Component;
 public class CacheInitRunner implements ApplicationRunner {
 
     @Autowired
-    private SysZuulRouteService sysZuulRouteService;
+    private SysZuulRouteCacheManager cacheManager;
 
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
         //路由信息刷入缓存
-        sysZuulRouteService.applyZuulRoute();
+        cacheManager.applyZuulRoute();
     }
 }

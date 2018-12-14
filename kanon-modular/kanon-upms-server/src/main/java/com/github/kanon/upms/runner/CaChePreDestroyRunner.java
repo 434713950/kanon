@@ -13,7 +13,7 @@ import javax.annotation.PreDestroy;
  * @date 2018/12/12
  */
 @Component
-public class CaChePreDestroyHandler {
+public class CaChePreDestroyRunner {
 
     @Autowired
     private SysMenuService sysMenuService;

@@ -24,7 +24,6 @@ import java.lang.reflect.Method;
  * @Date: 2018/4/11
  */
 @Configuration
-@EnableCaching(mode = AdviceMode.ASPECTJ)
 public class RedisConfig extends CachingConfigurerSupport {
 
     /**
@@ -54,6 +53,7 @@ public class RedisConfig extends CachingConfigurerSupport {
     @Bean
     public CacheManager cacheManager(RedisTemplate redisTemplate) {
         RedisCacheManager rcm = new RedisCacheManager(redisTemplate);
+        rcm.setLoadRemoteCachesOnStartup(true);
         return rcm;
     }
 

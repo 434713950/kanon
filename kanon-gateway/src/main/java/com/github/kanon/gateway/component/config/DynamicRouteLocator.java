@@ -5,12 +5,12 @@ import com.github.kanon.common.constants.CacheConstants;
 import com.github.tool.common.CollectionUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.cloud.client.ServiceInstance;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.cloud.netflix.zuul.filters.discovery.DiscoveryClientRouteLocator;
-import org.springframework.data.redis.core.RedisTemplate;
 
 import java.util.*;
 
@@ -24,13 +24,13 @@ public class DynamicRouteLocator extends DiscoveryClientRouteLocator {
 
     private ZuulProperties properties;
 
-    private RedisTemplate redisTemplate;
+    private CacheManager cacheManager;
 
     public DynamicRouteLocator(String servletPath, DiscoveryClient discovery, ZuulProperties properties,
-                               ServiceInstance localServiceInstance, RedisTemplate redisTemplate) {
+                               ServiceInstance localServiceInstance,  CacheManager cacheManager) {
         super(servletPath, discovery, properties, localServiceInstance);
         this.properties = properties;
-        this.redisTemplate = redisTemplate;
+        this.cacheManager = cacheManager;
     }
 
     /**
@@ -71,7 +71,7 @@ public class DynamicRouteLocator extends DiscoveryClientRouteLocator {
     private Map<String, ZuulProperties.ZuulRoute> locateRoutesFromCache() {
         Map<String, ZuulProperties.ZuulRoute> routes = new LinkedHashMap<>();
 
-        List<ZuulRoute> results = getSystemZuulRoutes();
+        List<ZuulRoute> results = loadRouteFromCache();
         if (CollectionUtil.isNotBlank(results)) {
             for (ZuulRoute zuulRoute : results) {
                 if (StringUtils.isEmpty(zuulRoute.getPath()) && StringUtils.isEmpty(zuulRoute.getUrl())) {
@@ -94,12 +94,16 @@ public class DynamicRouteLocator extends DiscoveryClientRouteLocator {
         return routes;
     }
 
-    /**
-     * 从缓存中获取路由信息
-     * @return
-     */
-    @Cacheable(value = CacheConstants.KANON_CACHE_GROUP,key = "'"+ CacheConstants.CACHE_ROUTE_KEY_SUFFIX+"'")
-    public List<ZuulRoute> getSystemZuulRoutes(){
-        return null;
+    private List<ZuulRoute> loadRouteFromCache(){
+       Cache cache = cacheManager.getCache(CacheConstants.KANON_CACHE_GROUP);
+       if (cache == null){
+           return null;
+       }
+       Cache.ValueWrapper  valueWrapper= cache.get(CacheConstants.CACHE_ROUTE_KEY_SUFFIX);
+       if (valueWrapper==null) {
+           return null;
+       }
+       return (List<ZuulRoute>) valueWrapper.get();
     }
+
 }

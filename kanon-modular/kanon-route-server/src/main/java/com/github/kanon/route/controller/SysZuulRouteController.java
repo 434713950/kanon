@@ -4,10 +4,11 @@ import com.baomidou.mybatisplus.plugins.Page;
 import com.github.kanon.common.base.controller.IKanonController;
 import com.github.kanon.common.base.model.vo.Pagination;
 import com.github.kanon.common.base.model.vo.ResponseParam;
+import com.github.kanon.route.cache.SysZuulRouteCacheManager;
 import com.github.kanon.route.model.dto.SysZuulRouteDto;
 import com.github.kanon.route.model.dto.SysZuulRouteQuery;
 import com.github.kanon.route.model.pojo.SysZuulRoute;
-import com.github.kanon.route.service.SysZuulRouteService;
+import com.github.kanon.route.service.ISysZuulRouteService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -30,7 +31,10 @@ import java.util.List;
 public class SysZuulRouteController implements IKanonController {
 
     @Autowired
-    private SysZuulRouteService sysZuulRouteService;
+    private ISysZuulRouteService sysZuulRouteService;
+
+    @Autowired
+    private SysZuulRouteCacheManager sysZuulRouteCacheManager;
 
     @ApiOperation(value="分页查询",tags="系统路由")
     @ApiImplicitParam(name = "sysZuulRouteQuery", required = true, dataType = "SysZuulRouteQuery")
@@ -82,7 +86,7 @@ public class SysZuulRouteController implements IKanonController {
     @ApiOperation(value="应用路由配置(刷新配置)",tags="系统路由")
     @GetMapping("apply")
     public ResponseParam apply(){
-        sysZuulRouteService.applyZuulRoute();
+        sysZuulRouteCacheManager.applyZuulRoute();
         return ResponseParam.success();
     }
 }

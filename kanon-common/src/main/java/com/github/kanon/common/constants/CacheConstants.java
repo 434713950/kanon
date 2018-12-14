@@ -22,8 +22,4 @@ public interface CacheConstants {
      */
     String SYS_MENU_TREE_CACHE = "sys_menu_tree";
 
-    /**
-     * 菜单数据缓存key
-     */
-    String SYS_MENU_DATA_CACHE = "sys_menu_data";
 }

@@ -16,7 +16,7 @@ import java.util.List;
  * @author PengCheng
  * @date 2018/12/5
  */
-public interface SysMenuService extends MyBatisPlusService<SysMenu>, IKanonService {
+public interface ISysMenuService extends MyBatisPlusService<SysMenu>, IKanonService {
 
     /**
      * 获取完整的折叠菜单树
@@ -25,16 +25,10 @@ public interface SysMenuService extends MyBatisPlusService<SysMenu>, IKanonServi
     List<SysMenuTree> getWholeFoldedMenuTree();
 
     /**
-     * 获取完整的平铺菜单树
-     * @return List<SysMenuTree>
+     * 获取完整的菜单树数据
+     * @return
      */
-    List<SysMenuTree> getWholeTilingMenuTree();
-
-
-    /**
-     * 清除菜单相关的所有缓存
-     */
-    void clearSysMenuCache();
+    List<SysMenu> getWholeMenu();
 
     /**
      * 保存

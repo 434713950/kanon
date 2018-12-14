@@ -20,7 +20,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 @SpringCloudApplication
 @EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
-@ComponentScan(basePackages = {"com.github.kanon.gateway", "com.github.kanon.common"})
+@ComponentScan(basePackages = {"com.github.kanon.*"})
 public class KanonGatewayApplication {
 
     public static void main(String[] args) {

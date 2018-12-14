@@ -5,12 +5,13 @@ import com.github.kanon.common.constants.CacheConstants;
 import com.github.kanon.common.constants.CommonConstant;
 import com.github.kanon.common.exceptions.ErrorMsgException;
 import com.github.kanon.datasource.mybatis.service.MyBatisPlusServiceImpl;
+import com.github.kanon.upms.cache.SysMenuCacheManager;
 import com.github.kanon.upms.mapper.SysMenuMapper;
 import com.github.kanon.upms.model.Tree.SysMenuTree;
 import com.github.kanon.upms.model.dto.SysMenuDto;
 import com.github.kanon.upms.model.dto.SysMenuQuery;
 import com.github.kanon.upms.model.pojo.SysMenu;
-import com.github.kanon.upms.service.SysMenuService;
+import com.github.kanon.upms.service.ISysMenuService;
 import com.github.kanon.upms.manager.SysMenuManager;
 import com.github.kanon.upms.vaildation.SysMenuValidation;
 import com.github.tool.common.CollectionUtil;
@@ -18,9 +19,7 @@ import com.github.tool.page.MockPage;
 import com.github.tool.page.MockPageUtil;
 import com.github.tool.tree.template.PromiscuityTreeTemplate;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.cache.annotation.Caching;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -34,14 +33,16 @@ import java.util.Set;
  * @author PengCheng
  * @date 2018/12/5
  */
-@Service
-public class SysMenuServiceImpl extends MyBatisPlusServiceImpl<SysMenuMapper, SysMenu> implements SysMenuService {
+@Service("sysMenuService")
+public class SysMenuService extends MyBatisPlusServiceImpl<SysMenuMapper, SysMenu> implements ISysMenuService {
+
+    @Autowired
+    private SysMenuCacheManager sysMenuCacheManager;
 
     @Override
     @Transactional(readOnly = true,rollbackFor = Exception.class)
-    @Cacheable(value = CacheConstants.KANON_CACHE_GROUP,key = "'"+ CacheConstants.SYS_MENU_TREE_CACHE +"'")
     public List<SysMenuTree> getWholeFoldedMenuTree(){
-        List<SysMenuTree> sysMenuTreeList = getWholeTilingMenuTree();
+        List<SysMenuTree> sysMenuTreeList = sysMenuCacheManager.getWholeTilingMenuTreeCache();
 
         //提取出所有的根节点
         Set<SysMenuTree> rootMenuTreeList = SysMenuManager.obtainRootMenuTrees(sysMenuTreeList);
@@ -55,25 +56,13 @@ public class SysMenuServiceImpl extends MyBatisPlusServiceImpl<SysMenuMapper, Sy
         return sysMenuTreeList;
     }
 
+
     @Override
     @Transactional(readOnly = true,rollbackFor = Exception.class)
-    public List<SysMenuTree> getWholeTilingMenuTree(){
-        //将数据包装成tree返回
-        return SysMenuManager.wrapSysMenuToTree(getWholeMenu());
-    }
-
-    @Transactional(readOnly = true,rollbackFor = Exception.class)
-    @Cacheable(value = CacheConstants.KANON_CACHE_GROUP,key = "'"+ CacheConstants.SYS_MENU_DATA_CACHE +"'")
     public List<SysMenu> getWholeMenu(){
         return selectList(new EntityWrapper<SysMenu>().eq(CommonConstant.DEL_FLAG,false).orderBy("num"));
     }
 
-    @Override
-    @Caching(evict = {
-            @CacheEvict(value= CacheConstants.KANON_CACHE_GROUP,key="'"+  CacheConstants.SYS_MENU_TREE_CACHE+"'"),
-            @CacheEvict(value= CacheConstants.KANON_CACHE_GROUP,key="'"+  CacheConstants.SYS_MENU_DATA_CACHE+"'")
-    })
-    public void clearSysMenuCache(){}
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -86,7 +75,7 @@ public class SysMenuServiceImpl extends MyBatisPlusServiceImpl<SysMenuMapper, Sy
         sysMenu.setId(null);
 
         if (insert(sysMenu)){
-            clearSysMenuCache();
+            sysMenuCacheManager.applyWholeTilingMenuTreeCache();
         }
         return sysMenu;
     }
@@ -109,7 +98,7 @@ public class SysMenuServiceImpl extends MyBatisPlusServiceImpl<SysMenuMapper, Sy
 
         sysMenu = SysMenuManager.covertDtoToEntity(sysMenuDto);
         if (updateById(sysMenu)){
-            clearSysMenuCache();
+            sysMenuCacheManager.applyWholeTilingMenuTreeCache();
         }
 
         return sysMenu;
@@ -130,7 +119,7 @@ public class SysMenuServiceImpl extends MyBatisPlusServiceImpl<SysMenuMapper, Sy
 
         //删除成功清除缓存
         if (deleteById(sysMenu)){
-            clearSysMenuCache();
+            sysMenuCacheManager.applyWholeTilingMenuTreeCache();
         }
     }
 
@@ -150,7 +139,7 @@ public class SysMenuServiceImpl extends MyBatisPlusServiceImpl<SysMenuMapper, Sy
         }
 
         if(deleteBatchIds(ids)){
-            clearSysMenuCache();
+            sysMenuCacheManager.applyWholeTilingMenuTreeCache();
         }
     }
 

@@ -12,10 +12,10 @@
     <artifactId>kanon-modular</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>kanon-upms-service</module>
+        <module>kanon-upms-server</module>
         <module>kanon-message-center</module>
         <module>kanon-logger-center</module>
-        <module>kanon-route-service</module>
+        <module>kanon-route-server</module>
     </modules>
 
 

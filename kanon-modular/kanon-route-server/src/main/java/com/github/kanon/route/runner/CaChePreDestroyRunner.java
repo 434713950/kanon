@@ -1,6 +1,6 @@
 package com.github.kanon.route.runner;
 
-import com.github.kanon.route.service.SysZuulRouteService;
+import com.github.kanon.route.cache.SysZuulRouteCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,13 +13,13 @@ import javax.annotation.PreDestroy;
  * @date 2018/12/12
  */
 @Component
-public class CaChePreDestroyHandler {
+public class CaChePreDestroyRunner {
 
     @Autowired
-    private SysZuulRouteService sysZuulRouteService;
+    private SysZuulRouteCacheManager cacheManager;
 
     @PreDestroy
     public void destroy(){
-        sysZuulRouteService.clearZuulRouteCache();
+        cacheManager.clearZuulRouteCache();
     }
 }

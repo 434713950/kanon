@@ -41,7 +41,7 @@ eureka:
     lease-renewal-interval-in-seconds: 5
     lease-expiration-duration-in-seconds: 20
     #指定ip(eureka内网其它ip的情况下,必须指定当前服务的ip，否则默认本地局域网)
-    ip-address: 10.2.21.228
+    ip-address: 127.0.0.1
     instance-id: ${spring.application.name}_${eureka.instance.ip-address}:${server.port}
     #指定健康监控的相关路径(management.context_path配置的情况下必须设置)
     health-check-url: http://${eureka.instance.ip-address}:${server.port}${management.context_path}/health
@@ -69,7 +69,7 @@ eureka:
   instance:
     prefer-ip-address: true
     #指定ip(eureka内网其它ip的情况下,必须指定当前服务的ip，否则默认本地局域网)
-    ip-address: 10.2.21.228
+    ip-address: 127.0.0.1
     instance-id: ${spring.application.name}_${eureka.instance.ip-address}:${server.port}
     #指定健康监控的相关路径(management.context_path配置的情况下必须设置)
     health-check-url: http://${eureka.instance.ip-address}:${server.port}${management.context_path}/health
