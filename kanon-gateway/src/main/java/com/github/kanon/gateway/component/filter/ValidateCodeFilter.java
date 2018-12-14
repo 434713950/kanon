@@ -99,9 +99,6 @@ public class ValidateCodeFilter extends ZuulFilter {
         }
 
         String randomStr = httpServletRequest.getParameter("randomStr");
-        if (StringUtils.isEmpty(randomStr)) {
-            randomStr = httpServletRequest.getParameter("mobile");
-        }
 
         //获取缓存组
         Cache cache = cacheManager.getCache(CacheConstants.KANON_VERIFICATION_CACHE_GROUP);
