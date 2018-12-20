@@ -8,6 +8,9 @@
 >>* kanon-monitor&nbsp;&nbsp;集群监控服务
 >>* kanon-zipkib-zipkin-es&nbsp;&nbsp;服务追踪,数据入es
 ---
+### 配置文件路径
+https://github.com/434713950/kanon-config dev分支
+---
  ### 启动方式:
  * 该服务依赖了[aviation-tool工具包](https://github.com/434713950/aviation-tool.git),请先向您的maven仓库安装该工具包
  * 在连接的mysql实例上建立kanon数据库，相应的初始表单会在对应服务启动时自动生成
