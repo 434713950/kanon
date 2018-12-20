@@ -1,6 +1,6 @@
 package com.github.kanon.upms.runner;
 
-import com.github.kanon.upms.service.SysMenuService;
+import com.github.kanon.upms.cache.SysMenuCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -16,9 +16,9 @@ import org.springframework.stereotype.Component;
 public class CacheInitRunner implements ApplicationRunner {
 
     @Autowired
-    private SysMenuService sysMenuService;
+    private SysMenuCacheManager sysMenuCacheManager;
     @Override
     public void run(ApplicationArguments applicationArguments) throws Exception {
-        sysMenuService.getWholeFoldedMenuTree();
+        sysMenuCacheManager.applyWholeTilingMenuTreeCache();
     }
 }

@@ -2,6 +2,7 @@ package com.github.kanon.datasource.mybatis.config;
 
 import com.baomidou.mybatisplus.mapper.ISqlInjector;
 import com.baomidou.mybatisplus.mapper.LogicSqlInjector;
+import com.baomidou.mybatisplus.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
 import com.baomidou.mybatisplus.plugins.PerformanceInterceptor;
 import org.mybatis.spring.annotation.MapperScan;
@@ -42,6 +43,15 @@ public class MybatisPlusConfig {
     @Bean
     public ISqlInjector sqlInjector() {
         return new LogicSqlInjector();
+    }
+
+
+    /**
+     * 乐观锁插件
+     */
+    @Bean
+    public OptimisticLockerInterceptor optimisticLockerInterceptor() {
+        return new OptimisticLockerInterceptor();
     }
 
 }

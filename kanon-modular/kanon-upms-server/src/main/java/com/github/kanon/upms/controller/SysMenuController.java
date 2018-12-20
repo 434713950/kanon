@@ -7,7 +7,7 @@ import com.github.kanon.upms.model.Tree.SysMenuTree;
 import com.github.kanon.upms.model.dto.SysMenuDto;
 import com.github.kanon.upms.model.dto.SysMenuQuery;
 import com.github.kanon.upms.model.pojo.SysMenu;
-import com.github.kanon.upms.service.SysMenuService;
+import com.github.kanon.upms.service.ISysMenuService;
 import com.github.tool.page.MockPage;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -30,7 +30,7 @@ import java.util.List;
 public class SysMenuController implements IKanonController {
 
     @Autowired
-    private SysMenuService sysMenuService;
+    private ISysMenuService sysMenuService;
 
     @ApiOperation(value="分页查询",tags="系统菜单")
     @ApiImplicitParam(name = "sysMenuQuery", required = true, dataType = "SysMenuQuery")

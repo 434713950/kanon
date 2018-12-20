@@ -1,7 +1,6 @@
 package com.github.kanon.upms.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.github.kanon.common.constants.CacheConstants;
 import com.github.kanon.common.constants.CommonConstant;
 import com.github.kanon.common.exceptions.ErrorMsgException;
 import com.github.kanon.datasource.mybatis.service.MyBatisPlusServiceImpl;
@@ -17,7 +16,7 @@ import com.github.kanon.upms.vaildation.SysMenuValidation;
 import com.github.tool.common.CollectionUtil;
 import com.github.tool.page.MockPage;
 import com.github.tool.page.MockPageUtil;
-import com.github.tool.tree.template.PromiscuityTreeTemplate;
+import com.github.tool.tree.builder.PromiscuityTreeBuilder;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -49,8 +48,8 @@ public class SysMenuService extends MyBatisPlusServiceImpl<SysMenuMapper, SysMen
 
         if (CollectionUtil.isNotBlank(rootMenuTreeList)) {
             rootMenuTreeList.forEach(rootMenuTree->{
-                PromiscuityTreeTemplate<SysMenuTree> template = new PromiscuityTreeTemplate<>();
-                template.mountChildrenNode(rootMenuTree,sysMenuTreeList);
+                PromiscuityTreeBuilder<SysMenuTree> treeBuilder = new PromiscuityTreeBuilder();
+                treeBuilder.mountChildrenNode(rootMenuTree,sysMenuTreeList);
             });
         }
         return sysMenuTreeList;

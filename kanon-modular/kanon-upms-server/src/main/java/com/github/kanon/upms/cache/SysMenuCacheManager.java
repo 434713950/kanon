@@ -31,9 +31,8 @@ public class SysMenuCacheManager {
     @CachePut(value = CacheConstants.KANON_CACHE_GROUP,key = "'"+ CacheConstants.SYS_MENU_TREE_CACHE +"'")
     public List<SysMenuTree> applyWholeTilingMenuTreeCache(){
         //将数据包装成tree返回
-        List<SysMenuTree> sysMenuTreeList = SysMenuManager.wrapSysMenuToTree(sysMenuService.getWholeMenu());
+        return SysMenuManager.wrapSysMenuToTree(sysMenuService.getWholeMenu());
 
-        return sysMenuTreeList;
     }
 
     /**

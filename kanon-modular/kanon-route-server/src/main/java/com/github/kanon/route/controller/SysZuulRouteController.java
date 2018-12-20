@@ -70,7 +70,7 @@ public class SysZuulRouteController implements IKanonController {
 
     @ApiOperation(value="删除",tags="系统路由")
     @PostMapping("delete")
-    public ResponseParam delete(@RequestParam("id") @RequestBody Long id){
+    public ResponseParam delete(@RequestParam("id") Long id){
         sysZuulRouteService.remove(id);
         return ResponseParam.success();
     }

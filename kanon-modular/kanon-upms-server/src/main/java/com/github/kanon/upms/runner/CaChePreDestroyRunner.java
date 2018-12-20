@@ -1,6 +1,6 @@
 package com.github.kanon.upms.runner;
 
-import com.github.kanon.upms.service.SysMenuService;
+import com.github.kanon.upms.cache.SysMenuCacheManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -16,10 +16,10 @@ import javax.annotation.PreDestroy;
 public class CaChePreDestroyRunner {
 
     @Autowired
-    private SysMenuService sysMenuService;
+    private SysMenuCacheManager sysMenuCacheManager;
 
     @PreDestroy
     public void destroy(){
-        sysMenuService.clearSysMenuCache();
+        sysMenuCacheManager.clearSysMenuCache();
     }
 }
