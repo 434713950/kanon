@@ -12,9 +12,9 @@
 https://github.com/434713950/kanon-config dev分支
 ---
  ### 启动方式:
- * 该服务依赖了[aviation-tool工具包](https://github.com/434713950/aviation-tool.git),请先向您的maven仓库安装该工具包
+ * 该服务依赖了[aviation-tool工具包(个人工具包)](https://github.com/434713950/aviation-tool.git),请先向您的maven仓库安装该工具包
  * 在连接的mysql实例上建立kanon数据库，相应的初始表单会在对应服务启动时自动生成
- * 服务启动顺序:kanon-eureka -> kanon-config ->kanon-auth->kanon-gateway->kanon-visual下的各服务
+ * 参考架构图,产品服务必须启动,支撑服务可选。具体启动方式为先启动kanon-eurake,之后启动其余各项,每个服务的readme.md文件中皆有说明
 ---
 #### 架构体系图
 <img src="src/image/kanon_framework.jpg" width=100% height="300">
