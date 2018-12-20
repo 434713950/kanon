@@ -22,7 +22,7 @@
 <img src="src/image/kanon_framework.jpg" width=100% height="300">
 
 ---
-### 权限控制体系图
+### 权限控制体系图 （开发中）
 <img src="src/image/auth.jpg" width=100% height="500">
 
 ---
