@@ -12,6 +12,7 @@ import com.github.kanon.message.exception.MessagePushFailException;
 import com.github.kanon.message.handler.AbstractNotifyMessageHandler;
 import com.taobao.api.ApiException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -22,6 +23,7 @@ import org.springframework.util.StringUtils;
  * @date 2018/11/5
  */
 @Component(MessageChannel.DINGTALK_WORKING_NOTIFY)
+@ConditionalOnExpression("!'${dingtalk}'.isEmpty() && '${dingtalk.enabled:true}'")
 public class DingtalkBusinessNotifyMessageHandler extends AbstractNotifyMessageHandler<DingTalkBusinessNotifyTemplate> {
 
     public static final String DING_ACCESS_TOKEN_URL = "https://oapi.dingtalk.com/gettoken";

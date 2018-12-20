@@ -14,6 +14,7 @@ import com.github.kanon.message.handler.AbstractNotifyMessageHandler;
 import com.github.kanon.message.consumer.sms.config.AliyunConfig;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -25,6 +26,7 @@ import org.springframework.util.StringUtils;
  */
 @Slf4j
 @Component(MessageChannel.ALIYUN_SMS)
+@ConditionalOnExpression("!'${aliyun}'.isEmpty() && '${aliyun.enabled:true}'")
 public class SmsNotifyMessageHandler extends AbstractNotifyMessageHandler<SmsNotifyTemplate> {
 
     /**

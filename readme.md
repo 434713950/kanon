@@ -9,8 +9,8 @@
 >>* kanon-zipkib-zipkin-es&nbsp;&nbsp;服务追踪,数据入es
 >* kanon-modular
 >>* kanon-logger-center&nbsp;&nbsp;业务日志收集中心
->>* kanon-message-center&nbsp;&nbsp;消息转发中心
->>* kanon-route-server&nbsp;&nbsp;动态路由服务
+>>* kanon-message-center&nbsp;&nbsp;消息转发中心  
+>>* kanon-route-server&nbsp;&nbsp;动态路由服务  
 ---
  ### 启动方式:
  * 该服务依赖了[aviation-tool工具包](https://github.com/434713950/aviation-tool.git),请先向您的maven仓库安装该工具包

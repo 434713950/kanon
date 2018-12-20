@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
@@ -22,6 +23,7 @@ import java.util.Map;
 @Slf4j
 @Component
 @RabbitListener(queues = MqQueueConstant.SMS_SERVICE_STATUS_CHANGE)
+@ConditionalOnExpression("!'${aliyun}'.isEmpty() && '${aliyun.enabled:true}'")
 public class SmsServiceChangeListener {
 
     @Autowired

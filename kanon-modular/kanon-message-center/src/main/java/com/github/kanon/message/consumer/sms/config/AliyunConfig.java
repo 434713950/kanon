@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Data
 @Configuration
-@ConditionalOnExpression("!'${aliyun}'.isEmpty()")
+@ConditionalOnExpression("!'${aliyun}'.isEmpty() && '${aliyun.enabled:true}'")
 @ConfigurationProperties(prefix = "aliyun")
 public class AliyunConfig {
 

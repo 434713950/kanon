@@ -13,7 +13,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Data
 @Configuration
-@ConditionalOnExpression("!'${dingtalk}'.isEmpty()")
+@ConditionalOnExpression("!'${dingtalk}'.isEmpty() && '${dingtalk.enabled:true}'")
 @ConfigurationProperties(prefix = "dingtalk")
 public class DingTalkConfig {
 
