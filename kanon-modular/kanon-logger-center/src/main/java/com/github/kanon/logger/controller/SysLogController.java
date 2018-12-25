@@ -6,7 +6,7 @@ import com.github.kanon.common.base.model.vo.Pagination;
 import com.github.kanon.common.base.model.vo.ResponseParam;
 import com.github.kanon.logger.model.dto.SysLogQuery;
 import com.github.kanon.logger.model.pojo.SysLog;
-import com.github.kanon.logger.service.SysLogService;
+import com.github.kanon.logger.service.ISysLogService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -26,7 +26,7 @@ import java.util.List;
 public class SysLogController implements IKanonController {
 
     @Autowired
-    private SysLogService sysLogService;
+    private ISysLogService sysLogService;
 
     @ApiOperation(value = "分页查询",tags = "系统日志")
     @ApiImplicitParam(name = "loggerQuery",value = "系统日志分页查询实体", required = true, dataType = "LoggerQuery")

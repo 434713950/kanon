@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
 import com.github.kanon.common.constants.CommonConstant;
 import com.github.kanon.common.exceptions.ErrorMsgException;
-import com.github.kanon.datasource.mybatis.service.MyBatisPlusServiceImpl;
+import com.github.kanon.datasource.mybatis.service.AbstractMyBatisPlusService;
 import com.github.kanon.route.cache.SysZuulRouteCacheManager;
 import com.github.kanon.route.mapper.SysZuulRouteMapper;
 import com.github.kanon.route.model.dto.SysZuulRouteDto;
@@ -27,7 +27,7 @@ import java.util.List;
  * @date 2018/11/8
  */
 @Service
-public class SysZuulRouteService extends MyBatisPlusServiceImpl<SysZuulRouteMapper, SysZuulRoute> implements ISysZuulRouteService {
+public class SysZuulRouteService extends AbstractMyBatisPlusService<SysZuulRouteMapper, SysZuulRoute> implements ISysZuulRouteService {
 
     @Autowired
     private SysZuulRouteCacheManager sysZuulRouteCacheManager;

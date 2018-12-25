@@ -23,5 +23,4 @@
             <version>${kanon.version}</version>
         </dependency>
     </dependencies>
-
 </project>

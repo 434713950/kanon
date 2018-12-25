@@ -3,7 +3,7 @@ package com.github.kanon.logger.listener;
 import com.github.kanon.common.base.model.entity.Logger;
 import com.github.kanon.common.constants.MqQueueConstant;
 import com.github.kanon.logger.model.pojo.SysLog;
-import com.github.kanon.logger.service.SysLogService;
+import com.github.kanon.logger.service.impl.SysLogService;
 import org.slf4j.MDC;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.BeanUtils;

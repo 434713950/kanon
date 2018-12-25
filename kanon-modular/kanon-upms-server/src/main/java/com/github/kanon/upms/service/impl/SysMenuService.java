@@ -3,7 +3,7 @@ package com.github.kanon.upms.service.impl;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.github.kanon.common.constants.CommonConstant;
 import com.github.kanon.common.exceptions.ErrorMsgException;
-import com.github.kanon.datasource.mybatis.service.MyBatisPlusServiceImpl;
+import com.github.kanon.datasource.mybatis.service.AbstractMyBatisPlusService;
 import com.github.kanon.upms.cache.SysMenuCacheManager;
 import com.github.kanon.upms.mapper.SysMenuMapper;
 import com.github.kanon.upms.model.Tree.SysMenuTree;
@@ -33,7 +33,7 @@ import java.util.Set;
  * @date 2018/12/5
  */
 @Service("sysMenuService")
-public class SysMenuService extends MyBatisPlusServiceImpl<SysMenuMapper, SysMenu> implements ISysMenuService {
+public class SysMenuService extends AbstractMyBatisPlusService<SysMenuMapper, SysMenu> implements ISysMenuService {
 
     @Autowired
     private SysMenuCacheManager sysMenuCacheManager;

@@ -2,11 +2,11 @@ package com.github.kanon.logger.service.impl;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.github.kanon.datasource.mybatis.service.MyBatisPlusServiceImpl;
+import com.github.kanon.datasource.mybatis.service.AbstractMyBatisPlusService;
 import com.github.kanon.logger.mapper.SysLogMapper;
 import com.github.kanon.logger.model.dto.SysLogQuery;
 import com.github.kanon.logger.model.pojo.SysLog;
-import com.github.kanon.logger.service.SysLogService;
+import com.github.kanon.logger.service.ISysLogService;
 import com.github.tool.common.CollectionUtil;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,7 +19,7 @@ import java.util.List;
  * @Date: 2018/6/28
  */
 @Service
-public class SysLogServiceImpl extends MyBatisPlusServiceImpl<SysLogMapper,SysLog> implements SysLogService {
+public class SysLogService extends AbstractMyBatisPlusService<SysLogMapper,SysLog> implements ISysLogService {
 
 
     @Override

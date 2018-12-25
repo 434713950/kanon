@@ -9,6 +9,6 @@ import com.baomidou.mybatisplus.service.impl.ServiceImpl;
  * @author PengCheng
  * @date 15:33 2018/4/10/010
  */
-public abstract class MyBatisPlusServiceImpl<M extends BaseMapper<T>, T> extends ServiceImpl<M,T> implements MyBatisPlusService<T> {
+public abstract class AbstractMyBatisPlusService<M extends BaseMapper<T>, T> extends ServiceImpl<M,T> implements IMyBatisPlusService<T> {
 
 }

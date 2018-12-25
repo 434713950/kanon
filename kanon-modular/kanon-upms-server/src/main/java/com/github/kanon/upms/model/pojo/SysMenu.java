@@ -11,6 +11,7 @@ import com.github.tool.common.DateUtil;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
@@ -24,6 +25,7 @@ import java.util.Date;
  */
 @Data
 @TableName("sys_p_menu")
+@Accessors(chain = true)
 @ApiModel(value = "SysMenu", description = "菜单权限")
 public class SysMenu extends Model<SysMenu> {
 

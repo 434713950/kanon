@@ -8,5 +8,5 @@ import com.baomidou.mybatisplus.service.IService;
  * @author PengCheng
  * @date 15:28 2018/4/10/010
  */
-public interface MyBatisPlusService<T> extends IService<T> {
+public interface IMyBatisPlusService<T> extends IService<T> {
 }

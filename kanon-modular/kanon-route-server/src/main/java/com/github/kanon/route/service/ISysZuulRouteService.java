@@ -1,9 +1,8 @@
 package com.github.kanon.route.service;
 
 import com.baomidou.mybatisplus.plugins.Page;
-import com.github.kanon.common.base.model.entity.ZuulRoute;
 import com.github.kanon.common.base.service.IKanonService;
-import com.github.kanon.datasource.mybatis.service.MyBatisPlusService;
+import com.github.kanon.datasource.mybatis.service.IMyBatisPlusService;
 import com.github.kanon.route.model.dto.SysZuulRouteDto;
 import com.github.kanon.route.model.dto.SysZuulRouteQuery;
 import com.github.kanon.route.model.pojo.SysZuulRoute;
@@ -17,7 +16,7 @@ import java.util.List;
  * @author PengCheng
  * @date 2018/11/8
  */
-public interface ISysZuulRouteService extends MyBatisPlusService<SysZuulRoute>, IKanonService {
+public interface ISysZuulRouteService extends IMyBatisPlusService<SysZuulRoute>, IKanonService {
 
     /**
      * 查询所有的系统路由信息
