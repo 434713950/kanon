@@ -4,6 +4,8 @@ import com.github.kanon.generate.anno.CommonlyAnnoEnum;
 import org.mybatis.generator.api.dom.java.Field;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -51,7 +53,6 @@ public class AnnoAdjunctionUtil {
                 break;
         }
     }
-
 
     public enum AnnoType{
         METHOD,FIELD,CLASS;

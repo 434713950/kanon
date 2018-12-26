@@ -12,9 +12,14 @@
 
     <context id="default" targetRuntime="MyBatis3">
 
-        <plugin type="com.github.kanon.generate.plugin.MybatisClientPlusPlugin">
-            <property name="service.targetPackage" value="${java.service.targetPackage}"/>
-            <property name="service.targetProject" value="${java.service.targetProject}"/>
+        <plugin type="com.github.kanon.generate.plugin.KanonClientPlusPlugin">
+            <property name="service.targetPackage" value="${service.targetPackage}"/>
+            <property name="service.targetProject" value="${service.targetProject}"/>
+            <property name="service.need.generated" value="${service.need.generated}"/>
+
+            <property name="controller.targetPackage" value="${controller.targetPackage}"/>
+            <property name="controller.targetProject" value="${controller.targetProject}"/>
+            <property name="controller.need.generated" value="${controller.need.generated}"/>
         </plugin>
 
         <!-- optional，旨在创建class时，对注释进行控制 -->

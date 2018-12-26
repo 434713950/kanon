@@ -1,4 +1,4 @@
-package com.github.kanon.generate.plugin;
+package com.github.kanon.generate.plugin.constant;
 
 /**
  * <p></p>
@@ -12,8 +12,7 @@ public interface MybatisPlusPackage {
 
     String BASE_MAPPER_PACKAGE = "com.baomidou.mybatisplus.mapper.BaseMapper";
 
-    String BASE_SERVICE = "com.github.kanon.datasource.mybatis.service.IMyBatisPlusService";
+    String BASE_SERVICE = "com.baomidou.mybatisplus.service.IService";
 
-    String BASE_SERVICE_IMPL = "com.github.kanon.datasource.mybatis.service.AbstractMyBatisPlusService";
-
+    String BASE_SERVICE_IMPL = "com.baomidou.mybatisplus.service.impl.ServiceImpl";
 }

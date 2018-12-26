@@ -1,17 +1,14 @@
 package com.github.kanon.generate.plugin;
 
 import com.github.kanon.generate.anno.CommonlyAnnoEnum;
-import com.github.kanon.generate.plugin.config.MybatisPlusMapperConfiguration;
-import com.github.kanon.generate.plugin.config.MybatisPlusServiceConfiguration;
-import com.github.kanon.generate.plugin.manager.MybatisPlusEntityManager;
-import com.github.kanon.generate.plugin.manager.MybatisPlusMapperManager;
-import com.github.kanon.generate.plugin.manager.MybatisPlusServiceManager;
+import com.github.kanon.generate.plugin.context.BusinessGenerateContext;
+import com.github.kanon.generate.plugin.generator.ControllerGeneratorAdapter;
+import com.github.kanon.generate.plugin.generator.ServiceGeneratorAdapter;
 import com.github.kanon.generate.util.AnnoAdjunctionUtil;
 import org.mybatis.generator.api.GeneratedJavaFile;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
-import org.mybatis.generator.api.dom.DefaultJavaFormatter;
 import org.mybatis.generator.api.dom.java.Field;
 import org.mybatis.generator.api.dom.java.Interface;
 import org.mybatis.generator.api.dom.java.Method;
@@ -30,30 +27,7 @@ import java.util.Map;
  */
 public class MybatisClientPlusPlugin extends PluginAdapter {
 
-    /**
-     * 实体对象
-     */
-    protected TopLevelClass entity;
-
-    /**
-     * mapper对象
-     */
-    protected Interface mapper;
-
-    /**
-     * service接口
-     */
-    protected Interface iService;
-
-    /**
-     * service实现
-     */
-    protected TopLevelClass service;
-
-
-    protected MybatisPlusMapperConfiguration mapperConfiguration;
-
-    protected MybatisPlusServiceConfiguration serviceConfiguration;
+    protected BusinessGenerateContext businessGenerateContext;
 
     /**
      * entity对象生成
@@ -63,8 +37,9 @@ public class MybatisClientPlusPlugin extends PluginAdapter {
      */
     @Override
     public boolean modelBaseRecordClassGenerated(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
-        MybatisPlusEntityManager.generateEntity(topLevelClass,introspectedTable,context);
-        this.entity = topLevelClass;
+        String tableComment = businessGenerateContext.setTableComment(introspectedTable);
+        businessGenerateContext.getEntityGenerator().generate(topLevelClass,introspectedTable,tableComment);
+        businessGenerateContext.setEntity(topLevelClass);
         return true;
     }
 
@@ -94,8 +69,8 @@ public class MybatisClientPlusPlugin extends PluginAdapter {
      */
     @Override
     public boolean clientGenerated(Interface interfaze, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
-        MybatisPlusMapperManager.generateMapper(interfaze,entity,mapperConfiguration);
-        this.mapper = interfaze;
+        businessGenerateContext.getMapperGenerator().generate(interfaze,businessGenerateContext.getEntity());
+        businessGenerateContext.setMapper(interfaze);
         return true;
     }
 
@@ -103,24 +78,34 @@ public class MybatisClientPlusPlugin extends PluginAdapter {
     public List<GeneratedJavaFile> contextGenerateAdditionalJavaFiles(IntrospectedTable introspectedTable) {
         List<GeneratedJavaFile> generatedJavaFiles = new ArrayList<>();
 
-        //生成service接口
-        GeneratedJavaFile iServiceJavaFile =  MybatisPlusServiceManager.generateInterface(entity,new DefaultJavaFormatter(),serviceConfiguration);
-        iService = (Interface) iServiceJavaFile.getCompilationUnit();
-        generatedJavaFiles.add(iServiceJavaFile);
+        ServiceGeneratorAdapter serviceGenerator = businessGenerateContext.getServiceGenerator();
+        if (serviceGenerator !=null) {
+            //生成service接口
+            GeneratedJavaFile iServiceJavaFile = serviceGenerator.generateInterface(businessGenerateContext.getEntity(),introspectedTable, context.getJavaFormatter());
+            businessGenerateContext.setIService((Interface) iServiceJavaFile.getCompilationUnit());
+            generatedJavaFiles.add(iServiceJavaFile);
 
-        //生成service实现类
-        GeneratedJavaFile serviceJavaFile = MybatisPlusServiceManager.generatedImpl(entity,mapper,iService,new DefaultJavaFormatter(),serviceConfiguration);
-        service = (TopLevelClass) serviceJavaFile.getCompilationUnit();
-        generatedJavaFiles.add(serviceJavaFile);
+            //生成service实现类
+            GeneratedJavaFile serviceJavaFile = serviceGenerator.generateImpl(businessGenerateContext.getEntity(), businessGenerateContext.getMapper(), businessGenerateContext.getIService(),introspectedTable, context.getJavaFormatter());
+            businessGenerateContext.setService((TopLevelClass) serviceJavaFile.getCompilationUnit());
+            generatedJavaFiles.add(serviceJavaFile);
+        }
+
+        ControllerGeneratorAdapter controllerGenerator = businessGenerateContext.getControllerGenerator();
+        if (controllerGenerator != null) {
+            //生成controller
+            GeneratedJavaFile controllerJavaFile =controllerGenerator.generate(businessGenerateContext.getEntity(), businessGenerateContext.getIService(), introspectedTable, context.getJavaFormatter(),businessGenerateContext.getTableComment());
+            businessGenerateContext.setController((TopLevelClass) controllerJavaFile.getCompilationUnit());
+            generatedJavaFiles.add(controllerJavaFile);
+        }
 
         return generatedJavaFiles;
     }
 
     @Override
     public boolean validate(List<String> warnings) {
-        mapperConfiguration = new MybatisPlusMapperConfiguration();
-        serviceConfiguration = new MybatisPlusServiceConfiguration();
-        return mapperConfiguration.parse(properties) && serviceConfiguration.parse(properties);
+        businessGenerateContext = new BusinessGenerateContext();
+        return businessGenerateContext.parseConfig(properties);
     }
 
     /**
