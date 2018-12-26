@@ -1,4 +1,4 @@
-# kanon 微服务企业框架
+# kanon 微服务企业开发框架
 >* kanon-auth&nbsp;&nbsp;认证服务
 >* kanon-common&nbsp;&nbsp;通用包
 >* kanon-config&nbsp;&nbsp;配置中心
