@@ -26,6 +26,4 @@
 ### 权限控制体系图 （开发中）
 <img src="src/image/auth.jpg" width=100% height="500">
 
----
 
-*该服务框架参考开源项目pig进行开发
