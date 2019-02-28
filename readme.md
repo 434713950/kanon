@@ -19,7 +19,7 @@
  * 支撑服务需要在上述产品服务全部启动成功后再启动
 ---
 #### 架构体系图
-<img src="src/image/kanon_frame.jpg" width=100% height="300">
+<img src="src/image/kanon_frame.jpg" width=100% height="500">
 <img src="src/image/kanon_org.jpg" width=100% height="300">
 
 ---
